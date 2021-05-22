@@ -79,24 +79,23 @@ const GamesLibrarySection = ({
   }, [])
 
   const handleLeftArrow = () => {
-    const rem = Number(
+    let rem = Number(
       window
         .getComputedStyle(document.documentElement, null)
         .getPropertyValue('font-size')
         .replace('px', '')
     )
-    const visibleGames = Math.floor(SlideRef.current.offsetWidth / (rem * 16))
-
     if (
       SlideRef.current.offsetWidth + SlideRef.current.scrollLeft ===
       SlideRef.current.scrollWidth
-    ){
-      const goToVisibleGames = visibleGames <= 1 ? 1 : visibleGames - 1
-      return (SlideRef.current.scrollLeft = SlideRef.current.scrollLeft - goToVisibleGames * (rem * 16))
-    }
-      
-    
-      return (SlideRef.current.scrollLeft = SlideRef.current.scrollLeft - visibleGames * (rem * 16))
+    )
+      return (SlideRef.current.scrollLeft =
+        SlideRef.current.scrollLeft -
+        (Math.floor(SlideRef.current.offsetWidth / (rem * 18)) - 1) *
+          (rem * 18))
+    return (SlideRef.current.scrollLeft =
+      SlideRef.current.scrollLeft -
+      Math.floor(SlideRef.current.offsetWidth / (rem * 18)) * (rem * 18))
   }
 
   const handleRightArrow = () => {
@@ -108,7 +107,7 @@ const GamesLibrarySection = ({
     )
     return (SlideRef.current.scrollLeft =
       SlideRef.current.scrollLeft +
-      Math.floor(SlideRef.current.offsetWidth / (rem * 16)) * (rem * 16))
+      Math.floor(SlideRef.current.offsetWidth / (rem * 18)) * (rem * 18))
   }
 
   if (type === 'grid')
@@ -152,7 +151,9 @@ const GamesLibrarySection = ({
             )
           })}
           { !loading && <GameItem showRating={showRating} game={'seemore'} />}
-          { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
+          <div style={{position: 'absolute', display: 'flex', width: '100%', zIndex: -1}}>
+          { loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
+          </div>
         </GamesLibrarySlide>
       </GamesLibrarySlideContainer>
     )

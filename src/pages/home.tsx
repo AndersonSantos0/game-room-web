@@ -20,7 +20,7 @@ const Home = () => {
     setLoadingRatedGames(true)
     const response = await axios.get('/api/games', {
       params:{
-        qtd: 20,
+        qtd: 9,
         index: 0,
         section: 'rating'
       },
@@ -37,7 +37,7 @@ const Home = () => {
     setLoadingNewestGames(true)
     const response = await axios.get('/api/games', {
       params:{
-        qtd: 20,
+        qtd: 9,
         index: 0,
         section: 'newest'
       },

@@ -6,6 +6,7 @@ export const GamesLibrarySlideContainer = styled.section`
 `
 
 export const GamesLibrarySlide = styled.div`
+  position: relative;
   overflow-x: hidden;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
