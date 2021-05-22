@@ -40,7 +40,7 @@ const GamesLibrarySection = ({
   const [enabledRightArrrow, setEnabledRightArrrow] = useState(true)
   const [scrollWidth, setScrollWidth] = useState(0)
   const [scrollOffset, setScrollOffset] = useState(0)
-  const [loadingRenderCount] = useState(new Array(10).fill(null))
+  const [loadingRenderCount] = useState(new Array(12).fill(null))
 
   useEffect(() => {
     if (type === 'grid') return
@@ -152,7 +152,7 @@ const GamesLibrarySection = ({
           })}
           { !loading && <GameItem showRating={showRating} game={'seemore'} />}
           <div style={{position: 'absolute', display: 'flex', width: '100%', zIndex: -1}}>
-          { loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
+          { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
           </div>
         </GamesLibrarySlide>
       </GamesLibrarySlideContainer>

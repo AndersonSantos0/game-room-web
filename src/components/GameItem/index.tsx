@@ -54,15 +54,12 @@ const GameItem = ({
       window.removeEventListener('resize', () => {})
   }, [])
 
-  useEffect(() => {
-    if (!slidemode || !slideVars) return
-    setTooRight(
-      slideVars.slideWidth +
-        slideVars.slideOffset -
-        GameItemRef.current?.offsetLeft <
-        400
-    )
-  }, [slideVars])
+  const isTooRight = () =>{
+    return (slideVars.slideWidth +
+    slideVars.slideOffset -
+    GameItemRef.current?.offsetLeft <
+    400)
+  }
 
   const GameItemHandle = () => {}
 
@@ -95,6 +92,7 @@ const GameItem = ({
     return (
       <GameItemContainer
         onClick={GameItemHandle}
+        onMouseEnter={() => setTooRight(isTooRight())}
         tooRight={tooRight}
         ref={GameItemRef}
       >
@@ -130,7 +128,6 @@ const GameItem = ({
             </GameRating>
           )}
         </Tilt>
-        <div className={'skeleton'} style={{position: 'absolute', left: '1rem'}} />
       </GameItemContainer>
     )
 }

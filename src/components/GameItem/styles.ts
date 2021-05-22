@@ -39,20 +39,19 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
       width: 12rem;
       height: 16rem;
       border-radius: 0.25rem;
-      background-color: rgba(255,255,255,.05);
+      background-color: rgba(255,255,255,.025);
       overflow: hidden;
 
       &:after{
         content: '';
         position: absolute;
         width: 8rem;
-        background: rgba(255,255,255,.1);
+        background: rgba(255,255,255,.01);
         height: 150%;
-        filter: blur(32px);
         transform: translate(-50%, 50%) rotateZ(-45deg);
         bottom: 0;
         left: 0;
-        animation: skeleton 2s infinite linear;
+        animation: skeleton 3s infinite;
 
         @keyframes skeleton{
           0%{
@@ -83,6 +82,7 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
         border-radius: 0.25rem;
         transition: border-radius .2s;
         overflow: hidden;
+        background: #333;
       }
 
       .FavoriteIcon{
@@ -90,7 +90,8 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
         right: .5rem;
         top: .5rem;
         color: var(--primary);
-        filter: drop-shadow(0 0 8px var(--primary))
+        filter: drop-shadow(0 0 8px var(--primary));
+        z-index: 1;
       }
 
       .GameTiltContent{
@@ -107,7 +108,7 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
           text-align: center;
           text-shadow: 0 0 8px rgba(0,0,0,.4);
           position: relative;
-          z-index: 2;
+          z-index: 3;
         }
       }
 
@@ -118,16 +119,20 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
         top: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,.4);
-        backdrop-filter: blur(16px);
+        background: linear-gradient(180deg, rgba(0,0,0,.8), transparent);
         border-radius: ${props => props.tooRight ? '0 .25rem .25rem 0' : '.25rem 0 0 .25rem'};
         opacity: 0;
         transition: .2s opacity;
+        z-index: 2;
       }
 
       &:hover{
         z-index: 2;
         border-radius: .25rem 0 0 .25rem;
+
+        .cover{
+          border-radius: ${props => props.tooRight ? '0 .25rem .25rem 0' : '.25rem 0 0 .25rem'};
+        }
 
         .GameTiltContent{
           opacity: 1;
@@ -135,10 +140,12 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
 
         &::after{
           opacity: 1;
+          backdrop-filter: blur(8px);
         }
         
         .GameActions{
           width: 2.5rem !important;
+          box-shadow: 8px 0 8px rgba(0,0,0,.4)
         }
 
         .GameRating{
@@ -177,7 +184,7 @@ export const GameItemActions = styled.div`
   top: 0;
   height: 100%;
   width: 0;
-  background: #333;
+  background: #222;
   transition: .2s width;
   overflow: hidden;
   border-radius: 0 .25rem .25rem 0;
@@ -230,7 +237,7 @@ export const GameItemActionsContainer = styled.div`
 
 export const GameRating = styled.div`
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   right: 0;
   bottom: 0;
   background-color: orange;
