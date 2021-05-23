@@ -18,6 +18,7 @@ type GameType = {
   first_release_date: number
   name: string
   summary: string
+  video?: string
 }
 
 interface GamesLibrarySectionProps {

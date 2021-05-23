@@ -4,25 +4,29 @@ import axios from 'axios'
 import { getGRBT } from '../services/api'
 import GamesLibrarySection from '../components/GamesLibrarySection'
 import Head from 'next/head'
+import YouTube from 'react-youtube'
 
 const Home = () => {
   const [ratedGames, setRatedGames] = useState([])
   const [newestGames, setNewestGames] = useState([])
+  const [comingGames, setComingGames] = useState([])
   const [loadingRatedGames, setLoadingRatedGames] = useState(true)
   const [loadingNewestGames, setLoadingNewestGames] = useState(true)
+  const [loadingComingGames, setLoadingComingGames] = useState(true)
 
-  useEffect(() =>{
+  useEffect(() => {
     getRatedGames()
     getNewestGames()
-  },[])
+    getComingGames()
+  }, [])
 
   const getRatedGames = async () => {
     setLoadingRatedGames(true)
     const response = await axios.get('/api/games', {
-      params:{
+      params: {
         qtd: 32,
         index: 0,
-        section: 'rating'
+        section: 'rating',
       },
       headers: {
         Authorization: await getGRBT(),
@@ -36,10 +40,10 @@ const Home = () => {
   const getNewestGames = async () => {
     setLoadingNewestGames(true)
     const response = await axios.get('/api/games', {
-      params:{
+      params: {
         qtd: 32,
         index: 0,
-        section: 'newest'
+        section: 'newest',
       },
       headers: {
         Authorization: await getGRBT(),
@@ -50,14 +54,48 @@ const Home = () => {
     setLoadingNewestGames(false)
   }
 
+  const getComingGames = async () => {
+    setLoadingComingGames(true)
+    const response = await axios.get('/api/games', {
+      params: {
+        qtd: 32,
+        index: 0,
+        section: 'coming',
+      },
+      headers: {
+        Authorization: await getGRBT(),
+      },
+    })
+
+    setComingGames(response.data)
+    setLoadingComingGames(false)
+  }
+
   return (
     <HomeContainer>
       <Head>
         <title>Game room</title>
       </Head>
       <HomeContentContainer>
-        <GamesLibrarySection loading={loadingRatedGames} title="Populares" type={"slide"} data={ratedGames} showRating />
-        {true && <GamesLibrarySection loading={loadingNewestGames} title="Novidades" type={"slide"} data={newestGames} />}
+        <GamesLibrarySection
+          loading={loadingRatedGames}
+          title={`Populares de ${new Date().getFullYear()}`}
+          type={'slide'}
+          data={ratedGames}
+          showRating
+        />
+        <GamesLibrarySection
+          loading={loadingNewestGames}
+          title="Novidades"
+          type={'slide'}
+          data={newestGames}
+        />
+        <GamesLibrarySection
+          loading={loadingComingGames}
+          title="Próximos Lançamentos"
+          type={'slide'}
+          data={comingGames}
+        />
       </HomeContentContainer>
     </HomeContainer>
   )

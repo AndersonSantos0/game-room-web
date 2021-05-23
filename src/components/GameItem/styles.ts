@@ -95,20 +95,39 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
       }
 
       .GameTiltContent{
+        position: relative;
+        font-family: KoHo semibold;
         width: 100%;
         height: 100%;
         padding: 1rem;
         opacity: 0;
+        z-index: 3;
+        color: #fff;
 
         h1{
-          color: #fff;
-          font-family: KoHo semibold;
           font-weight: 100;
           font-size: 1rem;
           text-align: center;
           text-shadow: 0 0 8px rgba(0,0,0,.4);
-          position: relative;
-          z-index: 3;
+        }
+        
+        h2{
+          font-weight: 100;
+          font-size: .8rem;
+          position: absolute;
+        }
+
+        h2.Date{
+          left: 1rem;
+          bottom: 2.2rem;
+          text-shadow: 0 0 8px rgba(0,0,0,.4);
+        }
+
+        h2.Ago{
+          
+          left: 1rem;
+          bottom: 1rem;
+          text-shadow: 0 0 8px rgba(0,0,0,.4);
         }
       }
 
@@ -119,7 +138,7 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
         top: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg, rgba(0,0,0,.8), transparent);
+        background: linear-gradient(180deg, rgba(0,0,0,.8), rgba(0,0,0,.4));
         border-radius: ${props => props.tooRight ? '0 .25rem .25rem 0' : '.25rem 0 0 .25rem'};
         opacity: 0;
         transition: .2s opacity;
@@ -140,7 +159,6 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
 
         &::after{
           opacity: 1;
-          backdrop-filter: blur(8px);
         }
         
         .GameActions{
@@ -150,6 +168,10 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
 
         .GameRating{
           border-bottom-right-radius: 0 !important;
+        }
+
+        .GameInfoBlock{
+          display: block;
         }
       }
 
@@ -173,9 +195,41 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
             right: unset !important;
           }
         }
+
+        .GameInfoBlock{
+          left: unset !important;
+          padding-left: 0 !important;
+          padding-right: 1rem;
+          right: 14.5rem;
+        }
       `}
     }
 
+`
+
+export const GameInfoBlock = styled.div`
+  position: absolute;
+  width: 16rem;
+  display: flex;
+  background-color: transparent;
+  z-index: 3;
+  top: 0;
+  left: 14.5rem;
+  padding-left: 1rem;
+  border-radius: .25rem;
+  overflow: hidden;
+  display: none;
+
+  .video{
+    border-radius: .25rem;
+    overflow: hidden;
+    display: flex;
+  }
+
+  p{
+    color: #fff;
+    font-size: .8rem;
+  }
 `
 
 export const GameItemActions = styled.div`
@@ -184,7 +238,7 @@ export const GameItemActions = styled.div`
   top: 0;
   height: 100%;
   width: 0;
-  background: #222;
+  background: #333;
   transition: .2s width;
   overflow: hidden;
   border-radius: 0 .25rem .25rem 0;
