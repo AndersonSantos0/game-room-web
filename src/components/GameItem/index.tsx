@@ -148,13 +148,13 @@ const GameItem = ({
                 <YouTube
                   videoId={game.video}
                   containerClassName="video"
+                  onReady={(e)=> e.target.playVideo()}
                   opts={{
                     height: '100%',
                     width: '100%',
                     playerVars: {
                       showinfo: 0,
                       controls: 0,
-                      autoplay: 1,
                       disablekb: 1,
                       modestbranding: 1,
                       origin: 'https://game-room.vercel.app'
