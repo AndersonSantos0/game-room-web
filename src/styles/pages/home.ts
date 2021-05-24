@@ -32,4 +32,12 @@ export const HomeContentContainer = styled.div`
   padding-right: 14px;
   width: 100%;
   height: fit-content;
+
+  > h1{
+    color: #fff;
+    font-family: KoHo semibold;
+    font-weight: 100;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+  }
 `

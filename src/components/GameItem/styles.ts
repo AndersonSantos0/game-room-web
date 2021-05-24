@@ -59,8 +59,8 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
             left: -4rem;
           }
           100%{
-            bottom: 20rem;
-            left: 18rem;
+            bottom: calc(100% + 4rem);
+            left: calc(100% + 4rem);
           }
         }
       }

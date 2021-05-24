@@ -9,16 +9,22 @@ import {
   GamesLibrarySlideContainer,
 } from './styles'
 
+type videoType = {
+  id: number
+  video_id: string
+}
+
 type GameType = {
   id: number
   cover?: {
     id: number
-    url: string
+    image_id: string
   }
   first_release_date: number
   name: string
   summary: string
-  video?: string
+  videos?: videoType[]
+  total_rating_count?: number
 }
 
 interface GamesLibrarySectionProps {

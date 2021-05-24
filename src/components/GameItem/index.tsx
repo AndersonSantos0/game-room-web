@@ -10,7 +10,6 @@ import { FaHeart } from 'react-icons/fa'
 import { useEffect, useRef, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import Image from 'next/image'
-import { Slide } from 'react-slideshow-image'
 import moment from 'moment'
 import YouTube from 'react-youtube'
 
@@ -20,17 +19,23 @@ let images = [
   'https://images.igdb.com/igdb/image/upload/t_screenshot_med/sc99ks.jpg',
 ]
 
+type videoType = {
+  id: number
+  video_id: string
+}
+
 type GameType = {
   id: number
   cover?: {
     id: number
-    url: string
+    image_id: string
   }
   first_release_date: number
   name: string
   summary: string
   total_rating?: number
-  video?: string
+  videos?: videoType[]
+  total_rating_count?: number
 }
 
 interface GameItemProps {
@@ -119,8 +124,8 @@ const GameItem = ({
           <div className="cover">
             <Image
               src={
-                game.cover?.url
-                  ? 'https:' + game.cover.url
+                game.cover?.image_id
+                  ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
                   : '/default-cover.png'
               }
               height={256}
@@ -142,11 +147,11 @@ const GameItem = ({
               <p>{Math.floor(game.total_rating)}</p>
             </GameRating>
           )}
-          {game.video && <GameInfoBlock className={'GameInfoBlock'}>
+          {game.videos && <GameInfoBlock className={'GameInfoBlock'}>
             {showVideo && (
               <div className="video">
                 <YouTube
-                  videoId={game.video}
+                  videoId={game.videos[game.videos.length - 1].video_id}
                   containerClassName="video"
                   onReady={(e)=> e.target.playVideo()}
                   opts={{
