@@ -1,4 +1,5 @@
 import Cors from 'cors'
+import { useRouter } from 'next/router'
 import initMiddleware from "../../../lib/init-middleware"
 import { api } from "../../../services/api"
 
@@ -13,20 +14,19 @@ const cors = initMiddleware(
 
 export default async function handler(req, res) {
 
+  const slug = req.query.slug
+
   await cors(req, res)
 
   const headers = {
     "Authorization": req.headers.authorization,
   }
 
-  console.log("HEADERS: ",headers)
-
   const query = `
-    fields name, summary, storyline, cover.image_id, first_release_date, total_rating, rating, videos.video_id, total_rating_count, slug;
-    where first_release_date > ${Math.floor(new Date('1 1 ' + new Date().getFullYear()).getTime() / 1000)} & first_release_date < ${Math.floor(new Date().getTime() / 1000)} & total_rating >= 80 & category = 0;
-    sort rating desc;
-    limit: ${req.query?.qtd || 30};
-    offset: ${Number(req.query.index) > 0 ? Number(req.query.index) * Number(req.query.qtd) : 0};
+    fields name, summary, storyline, screenshots.image_id, cover.image_id, first_release_date, videos.video_id, involved_companies.company.name, involved_companies.publisher, aggregated_rating, total_rating;
+    where slug = "${slug}";
+    limit: 1;
+    offset: 0;
   `
 
   const gamesReponse = await api.igdb.post('games', query, {
@@ -41,5 +41,8 @@ export default async function handler(req, res) {
     }
   })
 
-  res.status(200).json(data)
+  data[0] ?
+    res.status(200).json(data[0])
+  :
+    res.status(404).json("Game not found")
 }

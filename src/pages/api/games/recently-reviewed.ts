@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
 
   const query = `
-    fields first_release_date, name, total_rating, total_rating_count, screenshots.image_id, genres.name, cover.image_id;
+    fields first_release_date, name, total_rating, total_rating_count, screenshots.image_id, genres.name, cover.image_id, slug;
     where first_release_date > 0 & first_release_date < ${Math.floor(new Date().getTime() / 1000)} & aggregated_rating_count > 0 & aggregated_rating > 70 & category = 0;
     sort first_release_date desc;
     limit: ${req.query?.qtd || 30};

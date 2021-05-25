@@ -2,3 +2,8 @@
   font-family: KoHo semibold;
   src: url('../fonts/KoHo-semibold.ttf');
 }
+
+@font-face {
+  font-family: Hammersmith;
+  src: url('../fonts/Hammersmith.ttf');
+}

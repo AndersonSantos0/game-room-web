@@ -6,10 +6,6 @@ const grant_type = "client_credentials"
 
 export const getGRBT = async () => {
 
-  let grbt = localStorage.getItem('grbt')
-
-  if (grbt) return grbt
-
   const response = await axios.post('https://id.twitch.tv/oauth2/token', null, {
     params: {
       client_id,
@@ -17,8 +13,6 @@ export const getGRBT = async () => {
       grant_type
     }
   })
-
-  localStorage.setItem('grbt', "Bearer " + response.data.access_token)
 
   return "Bearer " + response.data.access_token
 }
@@ -29,5 +23,11 @@ export const api = {
     headers: {
       "Client-ID": client_id
     },
-  })
+  }),
+  grapi: axios.create({
+    baseURL: 'http://localhost:3000/api/',
+    headers: {
+      "Client-ID": client_id
+    },
+  }),
 }
