@@ -14,6 +14,7 @@ import {
   GameScreenContent,
   TotalRating,
 } from '../../styles/pages/game'
+import NotFound from '../404'
 
 type ScreenshotType = {
   id: number
@@ -58,7 +59,7 @@ interface GameScreenProps {
 const GameScreen = ({ game }: GameScreenProps) => {
   const route = useRouter()
 
-  if (game === 'not-found') return <h1>test</h1>
+  if (game === 'not-found')return(<NotFound />)
 
   return (
     <GameScreenContainer>
