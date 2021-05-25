@@ -47,16 +47,40 @@ export const RatedGamesGridContainer = styled.div`
   }
 `
 
-export const Cover = styled.div`
+interface CoverProps {
+  length?: number
+  counter: number
+}
+
+export const Cover = styled.div<CoverProps>`
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
+  border-radius: .25rem;
+  overflow: hidden;
+  position: relative;
 
-  > div {
-    border-radius: 0.25rem;
-    width: 100%;
+  .container {
+    position: absolute;
+    width: calc(100% * ${props => props.length});
+    left: calc(100% * -${props => props.counter});
+    transition: left .4s;
     height: 100%;
+    display: flex;
+    top: 0;
+
+    > div{
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+    }
+  }
+
+  &:hover{
+    .container{
+
+    }
   }
 `
 

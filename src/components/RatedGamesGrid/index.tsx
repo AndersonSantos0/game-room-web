@@ -7,7 +7,7 @@ import {
 import Tilt from 'react-parallax-tilt'
 import Image from 'next/image'
 import moment from 'moment'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type gameGenreType = {
   id: number
@@ -35,6 +35,45 @@ interface RatedGamesGridProps {
   loading?: boolean
 }
 
+interface RatedGameSlideProps {
+  screenshots?: gameImageType[]
+}
+
+const RatedGameSlide = ({ screenshots }: RatedGameSlideProps) => {
+  const [counter, setCounter] = useState(0)
+  const CoverRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    let Timer = setInterval(() => {
+      SlideIncrement()
+    }, 15000)
+
+    return () => clearInterval(Timer)
+  }, [])
+
+  const SlideIncrement = () => {
+    setCounter((prev) => (prev + 1 < screenshots.length - 1 ? prev + 1 : 0))
+  }
+
+  return (
+    <Cover ref={CoverRef} length={screenshots.length} counter={counter}>
+      <div className="container">
+        {screenshots.map((image) => {
+          return (
+            <Image
+              key={image.id}
+              width={1080}
+              height={720}
+              objectFit={'cover'}
+              src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.jpg`}
+            />
+          )
+        })}
+      </div>
+    </Cover>
+  )
+}
+
 const RatedGamesGrid = ({
   games = [],
   loading = false,
@@ -58,7 +97,7 @@ const RatedGamesGrid = ({
               break
           }
 
-          return <div className={`skeleton ${position}`} />
+          return <div key={idx} className={`skeleton ${position}`} />
         })}
       </RatedGamesGridContainer>
     )
@@ -81,6 +120,8 @@ const RatedGamesGrid = ({
 
         return (
           <Tilt
+
+            key={game.id}
             tiltEnable={true}
             tiltMaxAngleX={2}
             tiltMaxAngleY={
@@ -93,32 +134,12 @@ const RatedGamesGrid = ({
             }
             className={position}
           >
-            <Cover>
-              <Image
-                width={1080}
-                height={720}
-                objectFit={'cover'}
-                src={
-                  game.screenshots
-                    ? `https://images.igdb.com/igdb/image/upload/t_720p/${
-                        game.screenshots[
-                          Math.floor(
-                            Math.random() * (game.screenshots.length - 1)
-                          )
-                        ].image_id
-                      }.jpg`
-                    : game.cover
-                    ? `https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover.image_id}.jpg`
-                    : '/default-cover.png'
-                }
-              />
-            </Cover>
+
+            <RatedGameSlide screenshots={game.screenshots} />
 
             <RatedGamesGridContent>
               <h1>{game.name}</h1>
-              <h2>
-                {game.genres && game.genres[game.genres.length - 1].name}
-              </h2>
+              <h2>{game.genres && game.genres[game.genres.length - 1].name}</h2>
               <GameRating className={'GameRating'}>
                 <p>{Math.floor(game.total_rating)}%</p>
               </GameRating>
