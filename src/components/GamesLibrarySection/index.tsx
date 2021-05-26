@@ -54,7 +54,13 @@ const GamesLibrarySection = ({
 
     setScrollWidth(SlideRef.current.offsetWidth)
     setScrollOffset(SlideRef.current.scrollLeft)
-    SlideRef.current?.addEventListener('scroll', () => {
+
+    const onResizeEvent = () =>{
+      setScrollWidth(SlideRef.current?.offsetWidth)
+      setScrollOffset(SlideRef.current?.scrollLeft)
+    }
+
+    const onScrollEvent = () =>{
       setScrollWidth(SlideRef.current.offsetWidth)
       setScrollOffset(SlideRef.current.scrollLeft)
 
@@ -72,16 +78,14 @@ const GamesLibrarySection = ({
       } else {
         setEnabledRightArrrow(true)
       }
-    })
+    }
 
-    window.addEventListener('resize', () => {
-      setScrollWidth(SlideRef.current.offsetWidth)
-      setScrollOffset(SlideRef.current.scrollLeft)
-    })
+    SlideRef.current?.addEventListener('scroll', ()=> onScrollEvent())
+    window.addEventListener('resize', () => onResizeEvent())
 
     return () =>{
-      SlideRef.current?.removeEventListener('scroll', () => {})
-      SlideRef.current?.removeEventListener('resize', () => {})
+      SlideRef.current?.removeEventListener('scroll', () => onScrollEvent())
+      SlideRef.current?.removeEventListener('resize', () => onResizeEvent())
     }
   }, [])
 

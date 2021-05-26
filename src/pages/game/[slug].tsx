@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { api, getGRBT } from '../../services/api'
 import { PieChart } from 'react-minimal-pie-chart'
 import {
+  BlankBackCoverSpace,
   CriticRating,
   GameBackCover,
   GameCover,
@@ -15,6 +16,7 @@ import {
   TotalRating,
 } from '../../styles/pages/game'
 import NotFound from '../404'
+import { useEffect, useState } from 'react'
 
 type ScreenshotType = {
   id: number
@@ -57,14 +59,20 @@ interface GameScreenProps {
 }
 
 const GameScreen = ({ game }: GameScreenProps) => {
-  const route = useRouter()
+  if (game === 'not-found') return <NotFound />
 
-  if (game === 'not-found')return(<NotFound />)
+  const [publisher] = useState(
+    game.involved_companies &&
+      (game.involved_companies.filter((company) => company.publisher).length > 0
+      ? game.involved_companies?.filter((company) => company.publisher)[0]
+          .company.name
+      : game.involved_companies[0].company.name)
+  )
 
   return (
     <GameScreenContainer>
       <Head>
-        <title>{'Game room - ' + game.name}</title>
+        <title>{'Game room - ' + game?.name}</title>
       </Head>
       <GameBackCover>
         <Image
@@ -72,15 +80,18 @@ const GameScreen = ({ game }: GameScreenProps) => {
           width={1080}
           height={600}
           src={
-            'https://images.igdb.com/igdb/image/upload/t_720p/' +
-            game.screenshots[
-              Math.floor(Math.random() * (game.screenshots.length - 1))
-            ].image_id +
-            '.png'
+            game?.screenshots
+              ? 'https://images.igdb.com/igdb/image/upload/t_720p/' +
+                game.screenshots[
+                  Math.floor(Math.random() * (game.screenshots.length - 1))
+                ].image_id +
+                '.png'
+              : '/default-cover.png'
           }
         />
       </GameBackCover>
       <GameScreenContent>
+        <BlankBackCoverSpace />
         <header>
           <GameCover>
             <Image
@@ -88,15 +99,15 @@ const GameScreen = ({ game }: GameScreenProps) => {
               width={400}
               height={600}
               src={
-                'https://images.igdb.com/igdb/image/upload/t_cover_big/' +
-                game.cover.image_id +
-                '.png'
+                game?.cover
+                  ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.png`
+                  : '../default-cover.png'
               }
             />
           </GameCover>
           <GameInfo>
-            <h1>{game.name}</h1>
-            {game.first_release_date && (
+            <h1>{game?.name}</h1>
+            {game?.first_release_date && (
               <h2>
                 {moment(game.first_release_date * 1000.05).format(
                   'MMMM Do YYYY'
@@ -104,39 +115,42 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 ({moment(game.first_release_date * 1000).fromNow()})
               </h2>
             )}
-            <h3>
-              {
-                game.involved_companies.filter(
-                  (company) => company.publisher
-                )[0].company.name
-              }
-            </h3>
+            <h3>{publisher}</h3>
           </GameInfo>
-          <TotalRating>
-            <PieChart
-              data={[
-                {
-                  value: Math.floor(game.total_rating),
-                  color: 'var(--primary)',
-                },
-              ]}
-              totalValue={100}
-              segmentsShift={0}
-              lineWidth={16}
-              rounded={true}
-            />
-            <h1>{Math.round(game.total_rating)}</h1>
-          </TotalRating>
-          <CriticRating>
-            <PieChart
-              data={[{ value: Math.floor(game.aggregated_rating), color: 'orange' }]}
-              totalValue={100}
-              segmentsShift={0}
-              lineWidth={16}
-              rounded={true}
-            />
-            <h1>{Math.round(game.aggregated_rating)}</h1>
-          </CriticRating>
+          {game?.total_rating && (
+            <TotalRating>
+              <PieChart
+                data={[
+                  {
+                    value: Math.floor(game.total_rating),
+                    color: 'var(--primary)',
+                  },
+                ]}
+                totalValue={100}
+                segmentsShift={0}
+                lineWidth={16}
+                rounded={true}
+              />
+              <h1>{Math.round(game.total_rating)}</h1>
+            </TotalRating>
+          )}
+          {game?.aggregated_rating && (
+            <CriticRating>
+              <PieChart
+                data={[
+                  {
+                    value: Math.floor(game.aggregated_rating),
+                    color: 'orange',
+                  },
+                ]}
+                totalValue={100}
+                segmentsShift={0}
+                lineWidth={16}
+                rounded={true}
+              />
+              <h1>{Math.round(game.aggregated_rating)}</h1>
+            </CriticRating>
+          )}
         </header>
       </GameScreenContent>
     </GameScreenContainer>
@@ -160,7 +174,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       },
     })
     .then((response) => (data = response.data))
-    .catch(error =>{
+    .catch((error) => {
       console.log(error)
       data = 'not-found'
     })

@@ -25,6 +25,7 @@ export const GameScreenContainer = styled.div`
 export const GameBackCover = styled.div`
   width: 100%;
   height: 60vh;
+  min-height: 400px;
   display: flex;
   position: absolute;
   left: 0;
@@ -47,9 +48,14 @@ export const GameBackCover = styled.div`
   }
 `
 
+export const BlankBackCoverSpace = styled.div`
+  height: 60vh;
+  min-height: 400px;
+`
+
 export const GameScreenContent = styled.div`
   position: relative;
-  top: calc(60vh - 18rem);
+  top: -18rem;
   
   > header{
     max-width: 1200px;
@@ -67,6 +73,7 @@ export const GameCover = styled.div`
   display: flex;
   border-radius: .25rem;
   overflow: hidden;
+  background-color: #333;
 
   > div{
     width: 100%;

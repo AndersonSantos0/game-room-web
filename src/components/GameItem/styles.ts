@@ -71,6 +71,11 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
       width: 12rem;
       height: 16rem;
       transform-style: preserve-3d;
+      cursor: pointer;
+
+      &:active{
+        transform: scale(1) !important;
+      }
 
       .cover{
         position: absolute;

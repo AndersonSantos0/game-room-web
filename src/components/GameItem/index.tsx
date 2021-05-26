@@ -12,6 +12,8 @@ import { FiPlus } from 'react-icons/fi'
 import Image from 'next/image'
 import moment from 'moment'
 import YouTube from 'react-youtube'
+import { route } from 'next/dist/next-server/server/router'
+import { useRouter } from 'next/router'
 
 let images = [
   'https://images.igdb.com/igdb/image/upload/t_screenshot_med/sc99kt.jpg',
@@ -36,6 +38,7 @@ type GameType = {
   total_rating?: number
   videos?: videoType[]
   total_rating_count?: number
+  slug: string
 }
 
 interface GameItemProps {
@@ -55,7 +58,7 @@ const GameItem = ({
   slideVars,
 }: GameItemProps) => {
   const GameItemRef = useRef<HTMLDivElement>(null)
-
+  const route = useRouter()
   const [tooRight, setTooRight] = useState(false)
   const [favorite, setFavorite] = useState(false)
   const [showVideo, setShowVideo] = useState(false)
@@ -87,13 +90,14 @@ const GameItem = ({
     )
   }
 
-  const GameItemHandle = () => {
+  const GameItemHandle = (slug) => {
+    route.push('/game/'+slug)
   }
 
   if (typeof game === 'object')
     return (
       <GameItemContainer
-        onClick={GameItemHandle}
+        onClick={()=>GameItemHandle(game.slug)}
         onMouseEnter={() => {
           setTooRight(isTooRight())
           setShowVideo(true)
@@ -124,7 +128,7 @@ const GameItem = ({
           <div className="cover">
             <Image
               src={
-                game.cover?.image_id
+                game.cover
                   ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
                   : '/default-cover.png'
               }
