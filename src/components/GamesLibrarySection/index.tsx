@@ -25,6 +25,7 @@ type GameType = {
   summary: string
   videos?: videoType[]
   total_rating_count?: number
+  slug: string
 }
 
 interface GamesLibrarySectionProps {
