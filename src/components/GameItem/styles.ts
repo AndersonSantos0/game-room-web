@@ -168,7 +168,7 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
         
         .GameActions{
           width: 2.5rem !important;
-          box-shadow: 8px 0 8px rgba(0,0,0,.4)
+          box-shadow: ${props => props.tooRight ? '-8px' : '8px'} 0 8px rgba(0,0,0,.4)
         }
 
         .GameRating{

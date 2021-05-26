@@ -29,6 +29,7 @@ export const MenuNav = styled.nav`
   display: flex;
   align-items: center;
   flex: 1;
+  overflow-y: hidden;
 
   ul{
     list-style: none;

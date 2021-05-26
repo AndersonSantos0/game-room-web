@@ -5,7 +5,6 @@ import { getGRBT } from '../services/api'
 import GamesLibrarySection from '../components/GamesLibrarySection'
 import Head from 'next/head'
 import RatedGamesGrid from '../components/RatedGamesGrid'
-import { useRouter } from 'next/router'
 
 const Home = () => {
   const [ratedGames, setRatedGames] = useState([])
@@ -97,7 +96,6 @@ const Home = () => {
       </Head>
       <HomeContentContainer>
         <h1>Revisados recentemente</h1>
-        <p>{process.env.API_URL}</p> 
         <RatedGamesGrid games={recentlyReviewedGames} loading={loadingRecentlyReviewedGames} />
         <GamesLibrarySection
           loading={loadingRatedGames}

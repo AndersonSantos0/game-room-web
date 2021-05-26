@@ -18,6 +18,11 @@ import {
 import NotFound from '../404'
 import { useEffect, useState } from 'react'
 
+type GenreType = {
+  id: number
+  name: string
+}
+
 type ScreenshotType = {
   id: number
   image_id: string
@@ -50,8 +55,11 @@ type GameType = {
   summary?: string
   videos?: VideosType[]
   involved_companies?: CompanyType[]
+  genres?: GenreType[]
   aggregated_rating?: number
   total_rating?: number
+  aggregated_rating_count?: number
+  total_rating_count?: number
 }
 
 interface GameScreenProps {
@@ -59,6 +67,7 @@ interface GameScreenProps {
 }
 
 const GameScreen = ({ game }: GameScreenProps) => {
+  
   if (game === 'not-found') return <NotFound />
 
   const [publisher] = useState(
@@ -74,22 +83,16 @@ const GameScreen = ({ game }: GameScreenProps) => {
       <Head>
         <title>{'Game room - ' + game?.name}</title>
       </Head>
-      <GameBackCover>
-        <Image
-          objectFit={'cover'}
-          width={1080}
-          height={600}
-          src={
-            game?.screenshots
-              ? 'https://images.igdb.com/igdb/image/upload/t_720p/' +
-                game.screenshots[
-                  Math.floor(Math.random() * (game.screenshots.length - 1))
-                ].image_id +
-                '.png'
-              : '/default-cover.png'
-          }
-        />
-      </GameBackCover>
+      <GameBackCover
+        style={{
+          backgroundImage: `url(${game?.screenshots
+            && 'https://images.igdb.com/igdb/image/upload/t_720p/' +
+              game.screenshots[
+                Math.floor(Math.random() * (game.screenshots.length - 1))
+              ].image_id +
+              '.png'})`
+        }}
+      />
       <GameScreenContent>
         <BlankBackCoverSpace />
         <header>
@@ -116,6 +119,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
               </h2>
             )}
             <h3>{publisher}</h3>
+            <p>{game.genres?.map(genre=> genre.name).join(', ')}</p>
           </GameInfo>
           {game?.total_rating && (
             <TotalRating>
@@ -132,6 +136,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 rounded={true}
               />
               <h1>{Math.round(game.total_rating)}</h1>
+              <h2>{game.total_rating_count} total ratings</h2>
             </TotalRating>
           )}
           {game?.aggregated_rating && (
@@ -149,9 +154,15 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 rounded={true}
               />
               <h1>{Math.round(game.aggregated_rating)}</h1>
+              <h2>{game.aggregated_rating_count} critic ratings</h2>
             </CriticRating>
           )}
         </header>
+        <section>
+          <div></div>
+          <main><p>{game.summary}</p></main>
+          {game.total_rating_count && <div/>}
+        </section>
       </GameScreenContent>
     </GameScreenContainer>
   )

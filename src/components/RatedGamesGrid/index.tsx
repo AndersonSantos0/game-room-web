@@ -8,6 +8,7 @@ import Tilt from 'react-parallax-tilt'
 import Image from 'next/image'
 import moment from 'moment'
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 
 type gameGenreType = {
   id: number
@@ -28,6 +29,7 @@ type gameType = {
   cover?: gameImageType
   total_rating: number
   total_rating_count: number
+  slug: string
 }
 
 interface RatedGamesGridProps {
@@ -78,7 +80,13 @@ const RatedGamesGrid = ({
   games = [],
   loading = false,
 }: RatedGamesGridProps) => {
+  const route = useRouter()
   const [loadingSkeletonList] = useState(new Array(5).fill(null))
+  
+  const GameHandle = (slug) =>{
+    route.push('/game/'+slug)
+    console.log('teste')
+  }
 
   if (loading)
     return (
@@ -120,7 +128,6 @@ const RatedGamesGrid = ({
 
         return (
           <Tilt
-
             key={game.id}
             tiltEnable={true}
             tiltMaxAngleX={2}
@@ -137,7 +144,7 @@ const RatedGamesGrid = ({
 
             <RatedGameSlide screenshots={game.screenshots} />
 
-            <RatedGamesGridContent>
+            <RatedGamesGridContent onClick={()=>GameHandle(game.slug)}>
               <h1>{game.name}</h1>
               <h2>{game.genres && game.genres[game.genres.length - 1].name}</h2>
               <GameRating className={'GameRating'}>

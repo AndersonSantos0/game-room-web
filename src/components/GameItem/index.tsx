@@ -86,7 +86,7 @@ const GameItem = ({
       slideVars.slideWidth +
         slideVars.slideOffset -
         GameItemRef.current?.offsetLeft <
-        (rem * 34)
+        (rem * 35)
     )
   }
 

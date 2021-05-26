@@ -19,8 +19,6 @@ export default async function handler(req, res) {
     "Authorization": req.headers.authorization,
   }
 
-  console.log("HEADERS: ",headers)
-
   const query = `
     fields name, summary, storyline, cover.image_id, first_release_date, total_rating, rating, videos.video_id, total_rating_count, slug;
     where first_release_date > ${Math.floor(new Date('1 1 ' + new Date().getFullYear()).getTime() / 1000)} & first_release_date < ${Math.floor(new Date().getTime() / 1000)} & total_rating >= 80 & category = 0;
