@@ -27,7 +27,7 @@ const AsideMenu: React.FC = () => {
         <ul>
           <li className={'active'} >
             {router.route === "/game/[slug]" && <RiGamepadFill size={'1.8rem'} />}
-            {router.route === "/search" && <RiSearch2Fill size={'1.8rem'} />}
+            {router.route === "/search/game/[game]" && <RiSearch2Fill size={'1.8rem'} />}
           </li>
           <li className={router.route === "/home" ? 'active' : null} onClick={()=>router.push('/home')} >
             <HiHome size={'1.8rem'} />
