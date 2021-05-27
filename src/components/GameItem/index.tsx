@@ -54,7 +54,7 @@ interface GameItemProps {
 const GameItem = ({
   game,
   showRating = false,
-  slidemode = true,
+  slidemode = false,
   slideVars,
 }: GameItemProps) => {
   const GameItemRef = useRef<HTMLDivElement>(null)
@@ -63,18 +63,7 @@ const GameItem = ({
   const [favorite, setFavorite] = useState(false)
   const [showVideo, setShowVideo] = useState(false)
 
-  useEffect(() => {
-    if (slidemode) return
-    setTooRight(window.innerWidth - GameItemRef.current?.offsetLeft < 400)
-    window.addEventListener('resize', () => {
-      setTooRight(window.innerWidth - GameItemRef.current?.offsetLeft < 400)
-    })
-
-    return () => window.removeEventListener('resize', () => {})
-  }, [])
-
   const isTooRight = () => {
-
     let rem = Number(
       window
         .getComputedStyle(document.documentElement, null)
@@ -82,55 +71,64 @@ const GameItem = ({
         .replace('px', '')
     )
 
-    return (
-      slideVars.slideWidth +
-        slideVars.slideOffset -
-        GameItemRef.current?.offsetLeft <
-        (rem * 35)
-    )
+    if (slidemode)
+      return (
+        slideVars.slideWidth +
+          slideVars.slideOffset -
+          GameItemRef.current?.offsetLeft <
+        rem * 35
+      )
+
+    return window.innerWidth - GameItemRef.current?.offsetLeft < rem * 44
   }
 
   const GameItemHandle = (slug) => {
-    route.push('/game/'+slug)
+    route.push('/game/' + slug)
   }
 
   if (typeof game === 'object')
     return (
       <GameItemContainer
-        onClick={()=>GameItemHandle(game.slug)}
+        onClick={() => GameItemHandle(game.slug)}
         onMouseEnter={() => {
           setTooRight(isTooRight())
-          setShowVideo(true)
         }}
-        onMouseLeave={() => setShowVideo(false)}
         tooRight={tooRight}
         ref={GameItemRef}
       >
         <Tilt
           tiltEnable={true}
-          tiltMaxAngleX={ 5}
-          tiltMaxAngleY={ 5}
+          tiltMaxAngleX={5}
+          tiltMaxAngleY={5}
           tiltReverse
           transitionSpeed={400}
           scale={1.1}
           className={'GameTiltContainer'}
+          onEnter={() => setShowVideo(true)}
+          onLeave={() => setShowVideo(false)}
         >
           {favorite && <FaHeart className={`FavoriteIcon`} size={'1.5rem'} />}
           <div className="GameTiltContent">
             <h1>{game.name}</h1>
-            <h2 className="Date">
-              {moment(game.first_release_date * 1000.05).format('MMMM Do YYYY')}
-            </h2>
-            <h2 className="Ago">
-              {moment(game.first_release_date * 1000).fromNow()}
-            </h2>
+            {game.first_release_date && (
+              <>
+                <h2 className="Date">
+                  {moment(game.first_release_date * 1000.05).format(
+                    'MMMM Do YYYY'
+                  )}
+                </h2>
+                <h2 className="Ago">
+                  {moment(game.first_release_date * 1000).fromNow()}
+                </h2>
+              </>
+            )}
           </div>
           <div className="cover">
             <Image
               src={
                 game.cover
                   ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
-                  : '/default-cover.png'
+                  : '../../default-cover.png'
               }
               height={256}
               width={224}
@@ -151,29 +149,30 @@ const GameItem = ({
               <p>{Math.floor(game.total_rating)}</p>
             </GameRating>
           )}
-          {game.videos && <GameInfoBlock className={'GameInfoBlock'}>
-            {showVideo && (
-              <div className="video">
-                <YouTube
-                  videoId={game.videos[game.videos.length - 1].video_id}
-                  containerClassName="video"
-                  onReady={(e)=> e.target.playVideo()}
-                  opts={{
-                    height: '100%',
-                    width: '100%',
-                    playerVars: {
-                      showinfo: 0,
-                      controls: 0,
-                      disablekb: 1,
-                      modestbranding: 1,
-                      origin: 'https://game-room.vercel.app'
-                    },
-                  }}
-                />
-              </div>
-            )
-            }
-          </GameInfoBlock>}
+          {game.videos && (
+            <GameInfoBlock className={'GameInfoBlock'}>
+              {showVideo && (
+                <div className="video">
+                  <YouTube
+                    videoId={game.videos[0].video_id}
+                    containerClassName="video"
+                    onReady={(e) => e.target.playVideo()}
+                    opts={{
+                      height: '100%',
+                      width: '100%',
+                      playerVars: {
+                        showinfo: 0,
+                        controls: 0,
+                        disablekb: 1,
+                        modestbranding: 1,
+                        origin: 'https://game-room.vercel.app',
+                      },
+                    }}
+                  />
+                </div>
+              )}
+            </GameInfoBlock>
+          )}
         </Tilt>
       </GameItemContainer>
     )

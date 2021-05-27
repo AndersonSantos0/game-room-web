@@ -34,6 +34,7 @@ interface GamesLibrarySectionProps {
   loading?: boolean
   type?: 'grid' | 'slide'
   data: GameType[]
+  loadingItemsCount?: number
 }
 
 const GamesLibrarySection = ({
@@ -41,17 +42,18 @@ const GamesLibrarySection = ({
   title,
   type = 'grid',
   showRating = false,
-  loading = false
+  loading = false,
+  loadingItemsCount = 12
 }: GamesLibrarySectionProps) => {
   const SlideRef = useRef<HTMLDivElement>(null)
   const [enabledLeftArrrow, setEnabledLeftArrrow] = useState(false)
   const [enabledRightArrrow, setEnabledRightArrrow] = useState(true)
   const [scrollWidth, setScrollWidth] = useState(0)
   const [scrollOffset, setScrollOffset] = useState(0)
-  const [loadingRenderCount] = useState(new Array(12).fill(null))
+  const [loadingRenderCount] = useState(new Array(loadingItemsCount).fill(null))
 
   useEffect(() => {
-    if (type === 'grid') return
+    if (type === 'grid')return
 
     setScrollWidth(SlideRef.current.offsetWidth)
     setScrollOffset(SlideRef.current.scrollLeft)
@@ -128,6 +130,7 @@ const GamesLibrarySection = ({
         {data.map((game) => {
           return <GameItem key={game.id} game={game} />
         })}
+        { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
       </GamesLibraryContainer>
     )
 

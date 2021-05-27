@@ -5,6 +5,7 @@ import { getGRBT } from '../services/api'
 import GamesLibrarySection from '../components/GamesLibrarySection'
 import Head from 'next/head'
 import RatedGamesGrid from '../components/RatedGamesGrid'
+import SearchHeader from '../components/SearchHeader'
 
 const Home = () => {
   const [ratedGames, setRatedGames] = useState([])
@@ -27,7 +28,7 @@ const Home = () => {
     setLoadingRatedGames(true)
     const response = await axios.get('/api/games/rating', {
       params: {
-        qtd: 32,
+        qtd: 24,
         index: 0,
       },
       headers: {
@@ -45,7 +46,7 @@ const Home = () => {
     setLoadingNewestGames(true)
     const response = await axios.get('/api/games/newest', {
       params: {
-        qtd: 32,
+        qtd: 24,
         index: 0,
       },
       headers: {
@@ -61,7 +62,7 @@ const Home = () => {
     setLoadingComingGames(true)
     const response = await axios.get('/api/games/coming', {
       params: {
-        qtd: 32,
+        qtd: 24,
         index: 0,
       },
       headers: {
@@ -94,6 +95,7 @@ const Home = () => {
       <Head>
         <title>Game room</title>
       </Head>
+      <SearchHeader />
       <HomeContentContainer>
         <h1>Revisados recentemente</h1>
         <RatedGamesGrid games={recentlyReviewedGames} loading={loadingRecentlyReviewedGames} />
