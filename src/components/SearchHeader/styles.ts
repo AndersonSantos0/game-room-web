@@ -15,8 +15,8 @@ export const SearchHeaderContainer = styled.div`
       height: 2rem;
       border-radius: .25rem 0 0 .25rem;
       border: none;
-      width: 30%;
-      min-width: 25rem;
+      width: 30vw;
+      min-width: 10rem;
       background-color: rgba(255,255,255,.1);
       outline: none;
       color: #fff;

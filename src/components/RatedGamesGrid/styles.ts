@@ -6,7 +6,7 @@ export const RatedGamesGridContainer = styled.div`
   padding: 0 1rem;
   grid-auto-rows: calc(65vh / 3);
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 
   > div{
     position: relative;
@@ -19,18 +19,7 @@ export const RatedGamesGridContainer = styled.div`
       border-radius: 0.25rem;
       background-color: rgba(255,255,255,.025);
       overflow: hidden;
-
-      &:after{
-        content: '';
-        position: absolute;
-        width: 8rem;
-        background: rgba(255,255,255,.01);
-        height: 600%;
-        transform: translate(-50%, 50%) rotateZ(-45deg);
-        bottom: 0;
-        left: 0;
-        animation: skeleton 2s infinite;
-      }
+      animation: skeleton 1s infinite;
     }
 
   > .primary{
@@ -71,8 +60,7 @@ export const Cover = styled.div<CoverProps>`
     top: 0;
 
     > div{
-      width: 100%;
-      height: 100%;
+      flex: 1;
       opacity: 1;
     }
   }

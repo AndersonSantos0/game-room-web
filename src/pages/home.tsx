@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { HomeContainer, HomeContentContainer } from '../styles/pages/home'
 import axios from 'axios'
 import { getGRBT } from '../services/api'
-import GamesLibrarySection from '../components/GamesLibrarySection'
+import GamesLibrarySection from '../components/NewGamesLibrarySection'
 import Head from 'next/head'
 import RatedGamesGrid from '../components/RatedGamesGrid'
 import SearchHeader from '../components/SearchHeader'
@@ -15,7 +15,8 @@ const Home = () => {
   const [loadingRatedGames, setLoadingRatedGames] = useState(true)
   const [loadingNewestGames, setLoadingNewestGames] = useState(true)
   const [loadingComingGames, setLoadingComingGames] = useState(true)
-  const [loadingRecentlyReviewedGames, setLoadingRecentlyReviewedGames] = useState(true)
+  const [loadingRecentlyReviewedGames, setLoadingRecentlyReviewedGames] =
+    useState(true)
 
   useEffect(() => {
     getRatedGames()
@@ -28,7 +29,7 @@ const Home = () => {
     setLoadingRatedGames(true)
     const response = await axios.get('/api/games/rating', {
       params: {
-        qtd: 24,
+        qtd: 30,
         index: 0,
       },
       headers: {
@@ -46,7 +47,7 @@ const Home = () => {
     setLoadingNewestGames(true)
     const response = await axios.get('/api/games/newest', {
       params: {
-        qtd: 24,
+        qtd: 30,
         index: 0,
       },
       headers: {
@@ -62,7 +63,7 @@ const Home = () => {
     setLoadingComingGames(true)
     const response = await axios.get('/api/games/coming', {
       params: {
-        qtd: 24,
+        qtd: 30,
         index: 0,
       },
       headers: {
@@ -98,7 +99,10 @@ const Home = () => {
       <SearchHeader />
       <HomeContentContainer>
         <h1>Revisados recentemente</h1>
-        <RatedGamesGrid games={recentlyReviewedGames} loading={loadingRecentlyReviewedGames} />
+        <RatedGamesGrid
+          games={recentlyReviewedGames}
+          loading={loadingRecentlyReviewedGames}
+        />
         <GamesLibrarySection
           loading={loadingRatedGames}
           title={`Populares de ${new Date().getFullYear()}`}
