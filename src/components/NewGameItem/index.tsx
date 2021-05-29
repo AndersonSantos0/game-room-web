@@ -61,11 +61,7 @@ const GameItem = ({
   }
 
   const GameItemHandle = (slug) => {
-    //route.push('/game/' + slug)
-    if(!GameItemRef)return
-    console.log(GameItemRef.current.getBoundingClientRect().x)
-    console.log(GameItemRef.current.offsetWidth)
-    console.log(window.innerWidth)
+    route.push('/game/' + slug)
   }
 
   if (typeof game === 'object')
