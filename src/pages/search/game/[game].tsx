@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { HomeContainer, HomeContentContainer } from '../../../styles/pages/home'
 import { api, getGRBT } from '../../../services/api'
-import GamesLibrarySection from '../../../components/GamesLibrarySection'
+import GamesLibrarySection from '../../../components/NewGamesLibrarySection'
 import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import SearchHeader from '../../../components/SearchHeader'

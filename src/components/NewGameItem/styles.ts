@@ -86,7 +86,7 @@ export const GameItemContainer = styled.div<GameItemContainerProps>`
   }
 
   &:hover{
-    z-index: 2;
+    z-index: 4;
     transform: scale(1.05);
 
     .GameTiltContent{

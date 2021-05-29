@@ -1,5 +1,14 @@
 import styled from "styled-components"
 
+export const GamesLibraryContainerGrid = styled.section`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  grid-template-rows: repeat(auto-fill, 1fr);
+  gap: 1.5rem 1rem;
+  width: 100%;
+  padding: 0 1rem;
+`
+
 export const GamesLibrarySlideContainer = styled.section`
   display: flex;
   flex-direction: column;

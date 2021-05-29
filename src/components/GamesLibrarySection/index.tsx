@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
-import GameItem from '../GameItem'
+import GameItem from '../NewGameItem'
 import {
   GamesLibraryContainer,
   GamesLibraryHeader,
@@ -130,7 +130,6 @@ const GamesLibrarySection = ({
         {data.map((game) => {
           return <GameItem key={game.id} game={game} />
         })}
-        { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
       </GamesLibraryContainer>
     )
 

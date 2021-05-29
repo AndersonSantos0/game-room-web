@@ -3,6 +3,7 @@ import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
 import Carousel, { ButtonGroupProps, DotProps } from 'react-multi-carousel'
 import GameItem from '../NewGameItem'
 import {
+  GamesLibraryContainer,
   GamesLibraryHeader,
   GamesLibrarySlideArrows,
   GamesLibrarySlideContainer,
@@ -137,6 +138,16 @@ const GamesLibrarySection = ({
   const [enabledLeftArrrow, setEnabledLeftArrrow] = useState(false)
   const [enabledRightArrrow, setEnabledRightArrrow] = useState(true)
   const [loadingRenderCount] = useState(new Array(loadingItemsCount).fill(null))
+
+  if (type === 'grid')
+    return (
+      <GamesLibraryContainer>
+        {data.map((game) => {
+          return <GameItem key={game.id} game={game} />
+        })}
+        { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
+      </GamesLibraryContainer>
+    )
 
   if (type === 'slide')
     return (
