@@ -134,6 +134,7 @@ const GamesLibrarySection = ({
   type = 'grid',
   loading = false,
   loadingItemsCount = 30,
+  showRating
 }: GamesLibrarySectionProps) => {
   const [enabledLeftArrrow, setEnabledLeftArrrow] = useState(false)
   const [enabledRightArrrow, setEnabledRightArrrow] = useState(true)
@@ -174,7 +175,7 @@ const GamesLibrarySection = ({
           customDot={<CustomDots />}
         >
           { !loading && data.map((game) => {
-            return <GameItem showRating={true} key={game.id} game={game} />
+            return <GameItem showRating={showRating} key={game.id} game={game} />
           })}
           { loading && loadingRenderCount.map((item, key) => <GameItem key={key} game={"skeleton"}/>)}
         </Carousel>

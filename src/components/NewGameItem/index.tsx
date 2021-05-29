@@ -4,10 +4,7 @@ import {
   GameItemVideo,
   GameRating
 } from './styles'
-import Tilt from 'react-parallax-tilt'
-import { FaHeart } from 'react-icons/fa'
 import { useRef, useState } from 'react'
-import { FiPlus } from 'react-icons/fi'
 import Image from 'next/image'
 import moment from 'moment'
 import YouTube from 'react-youtube'
@@ -46,8 +43,6 @@ interface GameItemProps {
 const GameItem = ({
   game,
   showRating = false,
-  slidemode = false,
-  slideVars,
 }: GameItemProps) => {
   const GameItemRef = useRef<HTMLDivElement>(null)
   const route = useRouter()
