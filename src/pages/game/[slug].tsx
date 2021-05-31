@@ -118,7 +118,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
 
   const [viewImageId, setViewImageId] = useState('')
   const [randomScreenShot] = useState(
-    Math.floor(Math.random() * (game.screenshots.length - 1))
+    Math.floor(Math.random() * (game.screenshots?.length - 1))
   )
   const { showImage } = useImageView()
 
@@ -219,15 +219,15 @@ const GameScreen = ({ game }: GameScreenProps) => {
         <section>
           <div>
             <button>Favorite</button>
-            <p>
+            {game.platforms && <p>
               <h3>Platforms: </h3>
-              {game.platforms?.map((platform, idx) => (
+              {game.platforms.map((platform, idx) => (
                 <span key={idx}>
                   <a href="#">{platform.name}</a>
                   {idx + 1 === game.platforms.length ? '' : ', '}
                 </span>
               ))}
-            </p>
+            </p>}
           </div>
           <main>
             <p>{game.summary}</p>
