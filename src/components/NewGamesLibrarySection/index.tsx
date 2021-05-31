@@ -165,7 +165,7 @@ const GamesLibrarySection = ({
           arrows={false}
           responsive={responsive}
           keyBoardControl
-          customTransition="ease 600ms"
+          customTransition="ease 480ms"
           containerClass="container"
           itemClass="game"
           dotListClass="dots"

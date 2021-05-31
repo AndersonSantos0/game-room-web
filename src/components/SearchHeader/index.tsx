@@ -9,7 +9,7 @@ const SearchHeader = () => {
   const [searchValue, setSearchValue] = useState('')
 
   const Search = () => {
-    if (!searchValue.trim) return
+    if (!searchValue.trim())return
     push('/search/game/' + searchValue)
   }
 

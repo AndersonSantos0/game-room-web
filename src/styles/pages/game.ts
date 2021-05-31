@@ -146,8 +146,15 @@ export const ScreenshotsContainer = styled.div`
   padding-bottom: 1rem;
   position: relative;
 
+  .container {
+    ul{
+      //height: 360px;
+    }
+  }
+
   .screenshot {
     padding: 0 .25rem;
+    aspect-ratio: 16/9;
 
     > div{
       border-radius: 0.25rem;
@@ -155,6 +162,7 @@ export const ScreenshotsContainer = styled.div`
       display: flex;
       height: 100%;
       background-color: #333;
+      cursor: pointer;
 
       > .video{
         width: 100%;
@@ -180,6 +188,41 @@ export const ScreenshotsContainer = styled.div`
     color: #fff;
     font-family: KoHo semibold;
     font-weight: 100;
+  }
+`
+
+export const ScreenshotsContainerArrowsContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: .5rem;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+
+  button{
+    width: 4rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: transform .2s;
+
+    &:active{
+      transform: scale(.95);
+    }
+
+    &:first-child{
+      background: rgba(0,0,0,.8);//linear-gradient(90deg, #000, transparent 100%);
+      border: none;
+      backdrop-filter: blur(8px);
+      outline: none;
+    }
+
+    &:last-child{
+      background: rgba(0,0,0,.8);//linear-gradient(270deg, #000, transparent 100%);
+      border: none;
+      backdrop-filter: blur(8px);
+      outline: none;
+    }
   }
 `
 

@@ -9,6 +9,8 @@ import 'react-multi-carousel/lib/styles.css';
 
 import '../styles/fonts.css'
 import { useRouter } from 'next/router'
+import ImageViewProvider from '../contexts/ImageViewerContext'
+import ImageViewer from '../components/ImageViewer'
 
 const MainApp = styled.main`
   display: flex;
@@ -91,15 +93,17 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <MainApp>
-        <div className="AppContainer" >
-          <AsideMenu />
-          <LoadingBar loading={loading ? 1 : 0} />
-          <Component {...pageProps} />
-        </div>
-      </MainApp>
-
-      <GlobalStyles />
+      <ImageViewProvider>
+        <MainApp>
+          <div className="AppContainer" >
+            <AsideMenu />
+            <LoadingBar loading={loading ? 1 : 0} />
+            <Component {...pageProps} />
+            <ImageViewer />
+          </div>
+        </MainApp>
+        <GlobalStyles />
+      </ImageViewProvider>
     </ThemeProvider>
   )
 }

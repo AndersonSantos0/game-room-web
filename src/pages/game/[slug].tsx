@@ -2,7 +2,6 @@ import moment from 'moment'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { api, getGRBT } from '../../services/api'
 import { PieChart } from 'react-minimal-pie-chart'
 import {
@@ -13,12 +12,15 @@ import {
   GameScreenContainer,
   GameScreenContent,
   ScreenshotsContainer,
+  ScreenshotsContainerArrowsContainer,
   TotalRating,
 } from '../../styles/pages/game'
 import NotFound from '../404'
 import { useEffect, useState } from 'react'
-import Carousel, { DotProps } from 'react-multi-carousel'
+import Carousel, { ButtonGroupProps, DotProps } from 'react-multi-carousel'
 import YouTube from 'react-youtube'
+import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
+import { useImageView } from '../../contexts/ImageViewerContext'
 
 const responsive = {
   eight: {
@@ -98,8 +100,24 @@ const CustomDots = ({ active, onClick }: DotProps) => {
   )
 }
 
+const CustomButtonGroupAsArrows = ({ previous, next }: ButtonGroupProps) => {
+  return (
+    <ScreenshotsContainerArrowsContainer>
+      <button style={{ pointerEvents: 'all' }} onClick={previous}>
+        <HiOutlineChevronLeft color="#fff" size={'2.5rem'} />
+      </button>
+      <button style={{ pointerEvents: 'all' }} onClick={next}>
+        <HiOutlineChevronRight color="#fff" size={'2.5rem'} />
+      </button>
+    </ScreenshotsContainerArrowsContainer>
+  )
+}
+
 const GameScreen = ({ game }: GameScreenProps) => {
   if (game === 'not-found') return <NotFound />
+
+  const [viewImageId, setViewImageId] = useState('')
+  const {showImage} = useImageView()
 
   useEffect(() => {
     console.log(game)
@@ -132,7 +150,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
       />
       <GameScreenContent>
         <header>
-          <GameCover>
+          <GameCover style={{cursor: game.cover ? 'pointer' : 'default'}} onClick={()=>game.cover && showImage(game.cover.image_id)}>
             <Image
               objectFit={'cover'}
               width={400}
@@ -213,71 +231,72 @@ const GameScreen = ({ game }: GameScreenProps) => {
           </main>
           {game.total_rating_count && <div />}
         </section>
-        <ScreenshotsContainer>
-          <h1>Media</h1>
-          {(game.artworks || game.videos || game.screenshots) && <Carousel
-            infinite
-            showDots
-            draggable
-            responsive={responsive}
-            centerMode
-            keyBoardControl
-            customTransition="ease 450ms"
-            containerClass="container"
-            dotListClass="dots"
-            itemClass="screenshot"
-            renderButtonGroupOutside
-            renderDotsOutside
-            customDot={<CustomDots />}
-          >
-            {game.videos?.map((video) => (
-              <div>
-                <YouTube
-                  videoId={video.video_id}
-                  containerClassName="video"
-                  opts={{
-                    height: '100%',
-                    width: '100%',
-                    playerVars: {
-                      showinfo: 0,
-                      controls: 0,
-                      disablekb: 1,
-                      modestbranding: 1,
-                      fs: 0,
-                      hl: 'pt',
-                      iv_load_policy: 3,
-                      enablejsapi: 1
-                    },
-                  }}
-            />
-              </div>
-            ))}
-            {game.artworks?.map((image) => (
-              <div>
-                <Image
-                  draggable={false}
-                  objectFit={'cover'}
-                  width={1280}
-                  height={720}
-                  src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.png`
-                  }
-                />
-              </div>
-            ))}
-            {game.screenshots?.map((image) => (
-              <div>
-                <Image
-                  draggable={false}
-                  objectFit={'cover'}
-                  width={1280}
-                  height={720}
-                  src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.png`
-                  }
-                />
-              </div>
-            ))}
-          </Carousel>}
-        </ScreenshotsContainer>
+        {(game.artworks || game.videos || game.screenshots) && (
+          <ScreenshotsContainer>
+            <h1>Media</h1>
+            <Carousel
+              arrows={false}
+              infinite
+              showDots
+              draggable
+              responsive={responsive}
+              centerMode
+              keyBoardControl
+              customTransition="ease 450ms"
+              containerClass="container"
+              dotListClass="dots"
+              itemClass="screenshot"
+              renderDotsOutside
+              customDot={<CustomDots />}
+              customButtonGroup={<CustomButtonGroupAsArrows />}
+            >
+              {game.videos?.map((video) => (
+                <div>
+                  <YouTube
+                    videoId={video.video_id}
+                    containerClassName="video"
+                    opts={{
+                      height: '100%',
+                      width: '100%',
+                      playerVars: {
+                        showinfo: 0,
+                        controls: 0,
+                        disablekb: 1,
+                        modestbranding: 1,
+                        fs: 0,
+                        hl: 'pt',
+                        iv_load_policy: 3,
+                        enablejsapi: 1,
+                      },
+                    }}
+                  />
+                </div>
+              ))}
+              {game.artworks?.map((image) => (
+                <div onClick={()=>showImage(image.image_id)}>
+                  <Image
+                    draggable={false}
+                    objectFit={'cover'}
+                    width={1280}
+                    height={720}
+                    src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.png`}
+                  />
+                </div>
+              ))}
+              {game.screenshots?.map((image) => (
+                <div onClick={()=>showImage(image.image_id)}>
+                  <Image
+                    draggable={false}
+                    objectFit={'cover'}
+                    width={1280}
+                    height={720}
+                    src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.png`}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </ScreenshotsContainer>
+        )}
       </GameScreenContent>
     </GameScreenContainer>
   )
