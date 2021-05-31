@@ -255,7 +255,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
               customButtonGroup={<CustomButtonGroupAsArrows />}
             >
               {game.videos?.map((video) => (
-                <div>
+                <div key={video.id} >
                   <YouTube
                     videoId={video.video_id}
                     containerClassName="video"
@@ -277,7 +277,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 </div>
               ))}
               {game.artworks?.map((image) => (
-                <div onClick={() => showImage(image.image_id)}>
+                <div key={image.id}  onClick={() => showImage(image.image_id)}>
                   <Image
                     draggable={false}
                     objectFit={'cover'}
@@ -288,7 +288,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 </div>
               ))}
               {game.screenshots?.map((image) => (
-                <div onClick={() => showImage(image.image_id)}>
+                <div key={image.id}  onClick={() => showImage(image.image_id)}>
                   <Image
                     draggable={false}
                     objectFit={'cover'}
