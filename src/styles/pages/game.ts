@@ -177,11 +177,11 @@ export const ScreenshotsContainer = styled.div`
 
   .dots{
     width: 100%;
-    max-width: 1400px;
     height: fit-content;
     justify-content: flex-end;
     margin: 0 auto;
     top: 2.5rem;
+    padding-right: 2rem;
   }
 
   h1 {
