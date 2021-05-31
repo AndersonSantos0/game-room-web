@@ -47,7 +47,6 @@ const GameItem = ({
   const GameItemRef = useRef<HTMLDivElement>(null)
   const route = useRouter()
   const [tooRight, setTooRight] = useState(false)
-  const [favorite, setFavorite] = useState(false)
   const [showVideo, setShowVideo] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
 
@@ -118,6 +117,10 @@ const GameItem = ({
                   controls: 0,
                   disablekb: 1,
                   modestbranding: 1,
+                  fs: 0,
+                  hl: 'pt',
+                  iv_load_policy: 3,
+                  enablejsapi: 1,
                   origin: 'https://game-room.vercel.app',
                 },
               }}

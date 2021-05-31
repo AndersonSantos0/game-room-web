@@ -23,7 +23,22 @@ export default async function handler(req, res) {
   }
 
   const query = `
-    fields name, summary, storyline, screenshots.image_id, cover.image_id, first_release_date, videos.video_id, involved_companies.company.name, involved_companies.publisher, genres.name, aggregated_rating, aggregated_rating_count, total_rating, total_rating_count;
+    fields name,
+    summary,
+    storyline,
+    screenshots.image_id,
+    cover.image_id,
+    first_release_date,
+    videos.video_id,
+    involved_companies.company.name,
+    involved_companies.publisher,
+    genres.name,
+    aggregated_rating,
+    aggregated_rating_count,
+    total_rating,
+    total_rating_count,
+    platforms.name,
+    artworks.image_id;
     where slug = "${slug}";
     limit: 1;
     offset: 0;

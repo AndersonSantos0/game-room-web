@@ -51,43 +51,135 @@ export const GameBackCover = styled.div`
   }
 `
 
-export const BlankBackCoverSpace = styled.div`
-  height: 60vh;
-  min-height: 400px;
-`
-
 export const GameScreenContent = styled.div`
   position: relative;
-  top: -18rem;
   
   > header{
-    max-width: 1200px;
+    max-width: 1400px;
     margin: auto;
     display: flex;
     padding: 0 2rem;
     position: relative;
+    height: 60vh;
+    min-height: 400px;
   }
 
   > section{
-    max-width: 1200px;
+    max-width: 1400px;
     padding: 0 2rem;
-    padding-top: 1rem;
+    padding-top: 2rem;
     margin: auto;
     display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
 
     > div{
-      width: 18rem;
+      width: 16rem;
+      margin-top: 3.5rem;
+    }
+
+    > div:first-child{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; 
+
+      > button{
+        width: 100%;
+        height: 2.5rem;
+        border-radius: 0.25rem;
+        background-color: var(--primary);
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        transition: transform .2s, background-color .2s;
+        outline: none;
+
+        &:active{
+          background-color: var(--secondary);
+          transform: scale(.95);
+        }
+      }
+
+      > p{
+        color: var(--primary);
+
+        span{
+          color: #fff;
+          font-family: KoHo semibold;
+        }
+
+        a{
+          color: var(--primary);
+          text-decoration: none;
+
+          &:hover{
+            text-decoration: underline;
+          }
+        }
+      }
     }
     
     main {
       flex: 1;
-      margin-top: -3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      h1 {
+        color: #fff;
+        font-family: KoHo semibold;
+        font-weight: 100;
+        margin: 1.5rem 0 1rem 0;
+        font-size: 2rem;
+      }
 
       p{
         color: #fff;
         text-align: justify;
       }
     }
+  }
+`
+
+export const ScreenshotsContainer = styled.div`
+  padding: 1rem 0;
+  padding-bottom: 1rem;
+  position: relative;
+
+  .screenshot {
+    padding: 0 .25rem;
+
+    > div{
+      border-radius: 0.25rem;
+      overflow: hidden;
+      display: flex;
+      height: 100%;
+      background-color: #333;
+
+      > .video{
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .dots{
+    width: 100%;
+    max-width: 1400px;
+    height: fit-content;
+    justify-content: flex-end;
+    margin: 0 auto;
+    top: 2.5rem;
+  }
+
+  h1 {
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    padding: 0 2rem;
+    color: #fff;
+    font-family: KoHo semibold;
+    font-weight: 100;
   }
 `
 
@@ -99,6 +191,9 @@ export const GameCover = styled.div`
   border-radius: .25rem;
   overflow: hidden;
   background-color: #333;
+  align-self: flex-end;
+  position: relative;
+  bottom: -4rem;
 
   > div{
     width: 100%;
@@ -108,7 +203,7 @@ export const GameCover = styled.div`
 export const GameInfo = styled.div`
   padding: 0 2rem;
   align-self: flex-end;
-  padding-bottom: 6rem;
+  padding-bottom: 2rem;
 
   h1{
     font-size: 3rem;
@@ -169,7 +264,7 @@ export const TotalRating = styled.div`
   border-radius: 4rem;
   position: absolute;
   right: 10rem;
-  bottom: 0;
+  bottom: -2rem;
 
   h1{
     font-size: 2rem;
@@ -201,7 +296,7 @@ export const CriticRating = styled.div`
   border-radius: 3.25rem;
   position: absolute;
   right: 2rem;
-  bottom: 0;
+  bottom: -2rem;
 
   h1{
     font-size: 1.25rem;

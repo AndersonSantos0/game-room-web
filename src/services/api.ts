@@ -3,6 +3,7 @@ import axios from "axios"
 const client_id = "15jkk9eg5ozqiosdn5ev1vcx5j7t5f"
 const client_secret = "79vx4dhidl32zqa0pit4lebdz0ordv"
 const grant_type = "client_credentials"
+const isProd = process.env.NODE_ENV === "production"
 
 export const getGRBT = async () => {
 
@@ -25,7 +26,7 @@ export const api = {
     },
   }),
   grapi: axios.create({
-    baseURL: 'https://game-room.vercel.app/api/',
+    baseURL: isProd ? 'https://game-room.vercel.app/api/' : 'http://localhost:3000/api/',
     headers: {
       "Client-ID": client_id
     },
