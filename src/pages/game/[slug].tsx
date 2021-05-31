@@ -23,8 +23,8 @@ import YouTube from 'react-youtube'
 const responsive = {
   eight: {
     breakpoint: { max: 3000, min: 0 },
-    items: 3,
-    slidesToSlide: 1,
+    items: 2,
+    slidesToSlide: 2,
     partialVisibilityGutter: 8,
   },
 }
@@ -246,8 +246,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                       fs: 0,
                       hl: 'pt',
                       iv_load_policy: 3,
-                      enablejsapi: 1,
-                      origin: 'https://game-room.vercel.app',
+                      enablejsapi: 1
                     },
                   }}
             />

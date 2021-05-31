@@ -120,8 +120,7 @@ const GameItem = ({
                   fs: 0,
                   hl: 'pt',
                   iv_load_policy: 3,
-                  enablejsapi: 1,
-                  origin: 'https://game-room.vercel.app',
+                  enablejsapi: 1
                 },
               }}
             />

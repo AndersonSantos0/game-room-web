@@ -5,6 +5,7 @@ import { css, ThemeProvider } from 'styled-components'
 import theme from '../styles/theme'
 import AsideMenu from '../components/AsideMenu'
 import styled from 'styled-components'
+import 'react-multi-carousel/lib/styles.css';
 
 import '../styles/fonts.css'
 import { useRouter } from 'next/router'
