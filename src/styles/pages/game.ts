@@ -103,9 +103,13 @@ export const GameScreenContent = styled.div`
       > p{
         color: var(--primary);
 
-        span{
+        h3{
           color: #fff;
           font-family: KoHo semibold;
+          font-weight: 100;
+          font-size: 1rem;
+          margin-right: .25rem;
+          float: left;
         }
 
         a{

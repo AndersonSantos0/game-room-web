@@ -117,7 +117,10 @@ const GameScreen = ({ game }: GameScreenProps) => {
   if (game === 'not-found') return <NotFound />
 
   const [viewImageId, setViewImageId] = useState('')
-  const {showImage} = useImageView()
+  const [randomScreenShot] = useState(
+    Math.floor(Math.random() * (game.screenshots.length - 1))
+  )
+  const { showImage } = useImageView()
 
   useEffect(() => {
     console.log(game)
@@ -141,16 +144,17 @@ const GameScreen = ({ game }: GameScreenProps) => {
           backgroundImage: `url(${
             game?.screenshots &&
             'https://images.igdb.com/igdb/image/upload/t_720p/' +
-              game.screenshots[
-                Math.floor(Math.random() * (game.screenshots.length - 1))
-              ].image_id +
+              game.screenshots[randomScreenShot].image_id +
               '.png'
           })`,
         }}
       />
       <GameScreenContent>
         <header>
-          <GameCover style={{cursor: game.cover ? 'pointer' : 'default'}} onClick={()=>game.cover && showImage(game.cover.image_id)}>
+          <GameCover
+            style={{ cursor: game.cover ? 'pointer' : 'default' }}
+            onClick={() => game.cover && showImage(game.cover.image_id)}
+          >
             <Image
               objectFit={'cover'}
               width={400}
@@ -216,12 +220,12 @@ const GameScreen = ({ game }: GameScreenProps) => {
           <div>
             <button>Favorite</button>
             <p>
-              <span>Platforms: </span>
+              <h3>Platforms: </h3>
               {game.platforms?.map((platform, idx) => (
-                <>
+                <span key={idx}>
                   <a href="#">{platform.name}</a>
                   {idx + 1 === game.platforms.length ? '' : ', '}
-                </>
+                </span>
               ))}
             </p>
           </div>
@@ -273,7 +277,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 </div>
               ))}
               {game.artworks?.map((image) => (
-                <div onClick={()=>showImage(image.image_id)}>
+                <div onClick={() => showImage(image.image_id)}>
                   <Image
                     draggable={false}
                     objectFit={'cover'}
@@ -284,7 +288,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 </div>
               ))}
               {game.screenshots?.map((image) => (
-                <div onClick={()=>showImage(image.image_id)}>
+                <div onClick={() => showImage(image.image_id)}>
                   <Image
                     draggable={false}
                     objectFit={'cover'}
