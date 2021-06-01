@@ -10,7 +10,7 @@ const SearchHeader = () => {
 
   const Search = () => {
     if (!searchValue.trim())return
-    push('/search/game/' + searchValue)
+    push('/search/game/' + searchValue, null, )
   }
 
   return (

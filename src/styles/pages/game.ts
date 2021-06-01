@@ -367,3 +367,27 @@ export const CriticRating = styled.div`
     transform: translateX(-50%);
   }
 `
+
+export const LoadingContainer = styled.div`
+  min-height: 8rem;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h1{
+      position: relative;
+      top: .6rem;
+      left: -1.2rem;
+      color: #fff;
+      font-family: KoHo semibold;
+      font-weight: 100;
+    }
+  }
+`

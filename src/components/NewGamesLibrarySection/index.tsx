@@ -143,8 +143,8 @@ const GamesLibrarySection = ({
   if (type === 'grid')
     return (
       <GamesLibraryContainer>
-        {data.map((game) => {
-          return <GameItem key={game.id} game={game} />
+        {data.map((game, idx) => {
+          return <GameItem key={game.id + idx + Math.random()} game={game} />
         })}
         { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
       </GamesLibraryContainer>
@@ -174,8 +174,8 @@ const GamesLibrarySection = ({
           customButtonGroup={<CustomButtonGroupAsArrows loading={loading} enabledLeftArrrow={true} enabledRightArrrow={true} />}
           customDot={<CustomDots />}
         >
-          { !loading && data.map((game) => {
-            return <GameItem showRating={showRating} key={game.id} game={game} />
+          { !loading && data.map((game, idx) => {
+            return <GameItem showRating={showRating} key={game.id + idx + Math.random()} game={game} />
           })}
           { loading && loadingRenderCount.map((item, key) => <GameItem key={key} game={"skeleton"}/>)}
         </Carousel>
