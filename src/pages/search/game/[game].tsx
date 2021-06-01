@@ -35,13 +35,13 @@ interface SearchScreenProps {
 }
 
 const SearchScreen = ({ games }: SearchScreenProps) => {
-  const { query } = useRouter()
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [gamesData, setGamesData] = useState(games)
-  const [page, setPage] = useState(1)
-  const [endReached, setEndReached] = useState(false)
+  //const { query } = useRouter()
+  //const scrollRef = useRef<HTMLDivElement>(null)
+  //const [gamesData, setGamesData] = useState(games)
+  //const [page, setPage] = useState(1)
+  //const [endReached, setEndReached] = useState(false)
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     setGamesData(games)
     setEndReached(false)
     console.log(games.length)
@@ -88,10 +88,10 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
       .then((response) => {
         console.log('teste: ' + response.data.length)
         setGamesData([...gamesData, ...response.data])
-        if (response.data.length < 50) setEndReached(true)
+        if (response.data.length < 100) setEndReached(true)
         setPage(page + 1)
       })
-  }
+  }*/
 
   return (
     <HomeContainer>
@@ -99,29 +99,12 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
         <title>Game room</title>
       </Head>
       <SearchHeader />
-      <HomeContentContainer ref={scrollRef} >
+      <HomeContentContainer >
         <GamesLibrarySection
           loadingItemsCount={50}
           type={'grid'}
-          data={gamesData}
+          data={games}
         />
-        {!endReached && <LoadingContainer>
-          <div>
-            <Lottie
-              width={'8rem'}
-              height={'8rem'}
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: loadingJson,
-                rendererSettings: {
-                  preserveAspectRatio: 'xMidYMid slice',
-                },
-              }}
-            />
-            <h1>Loading...</h1>
-          </div>
-        </LoadingContainer>}
       </HomeContentContainer>
     </HomeContainer>
   )
@@ -140,7 +123,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   await api.grapi
     .get('/games/search', {
       params: {
-        qtd: 50,
+        qtd: 100,
         index: 0,
         game,
       },
