@@ -4,7 +4,11 @@ import { RiSearch2Line } from 'react-icons/ri'
 import Logo from '../Logo'
 import { SearchHeaderContainer } from './styles'
 
-const SearchHeader = () => {
+interface SearchHeaderProps {
+  fixed?: boolean
+}
+
+const SearchHeader = ({ fixed = false }: SearchHeaderProps) => {
   const { push } = useRouter()
   const [searchValue, setSearchValue] = useState('')
 
@@ -14,7 +18,7 @@ const SearchHeader = () => {
   }
 
   return (
-    <SearchHeaderContainer>
+    <SearchHeaderContainer fixed={fixed}>
       <Logo size="2rem" />
       <form
         onSubmit={(e) => {

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+const isProd = process.env.NODE_ENV === "production"
 
 export const GamesLibraryContainerGrid = styled.section`
   display: grid;
@@ -97,7 +98,7 @@ export const GamesLibraryHeader = styled.div`
 
 export const GamesLibraryContainer = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(${isProd ? '11rem' : '12rem'}, 1fr));
   grid-template-rows: repeat(auto-fill, 1fr);
   gap: 1.5rem 1rem;
   width: 100%;

@@ -1,11 +1,23 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const SearchHeaderContainer = styled.div`
+interface SearchHeaderProps {
+  fixed?: boolean
+}
+
+export const SearchHeaderContainer = styled.div<SearchHeaderProps>`
   height: 4rem;
   width: 100%;
   padding: 0 2rem;
   display: flex;
   align-items: center;
+
+  ${props => props.fixed && css`
+    position: fixed;
+    top: 0;
+    left : 0;
+    background-color: rgba(0, 0 ,0 ,.5);
+    backdrop-filter: blur(16px);
+  `}
 
   > form{
     display: flex;
@@ -40,6 +52,4 @@ export const SearchHeaderContainer = styled.div`
       }
     }
   }
-
-  
 `

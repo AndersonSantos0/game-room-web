@@ -1,15 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { HomeContainer, HomeContentContainer } from '../../../styles/pages/home'
 import { api, getGRBT } from '../../../services/api'
 import GamesLibrarySection from '../../../components/NewGamesLibrarySection'
 import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import SearchHeader from '../../../components/SearchHeader'
+import styled from 'styled-components'
+import Logo from '../../../components/Logo'
 import { useRouter } from 'next/router'
-import Lottie from 'react-lottie'
-
-import loadingJson from '../../../animations/loading.json'
-import { LoadingContainer } from '../../../styles/pages/game'
 
 type videoType = {
   id: number
@@ -28,70 +26,67 @@ type GameType = {
   videos?: videoType[]
   total_rating_count?: number
   slug: string
+  category: number
 }
 
 interface SearchScreenProps {
   games: GameType[]
 }
 
-const SearchScreen = ({ games }: SearchScreenProps) => {
-  //const { query } = useRouter()
-  //const scrollRef = useRef<HTMLDivElement>(null)
-  //const [gamesData, setGamesData] = useState(games)
-  //const [page, setPage] = useState(1)
-  //const [endReached, setEndReached] = useState(false)
+const BlankGamesSearch = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 4rem;
 
-  /*useEffect(()=>{
-    setGamesData(games)
-    setEndReached(false)
-    console.log(games.length)
-    if(games.length < 40)setEndReached(true)
-    setPage(1)
-    scrollRef.current.scrollTop = 0
-  },[games])
+  svg {
+    filter: grayscale(0.5);
+    animation: FailLogo 2s ease-in-out infinite;
+  }
 
-  useEffect(()=>{
-    let load = false
-    const isScrollEnd = () => scrollRef.current.scrollTop + scrollRef.current.offsetHeight > scrollRef.current.scrollHeight - 200
+  div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
 
-    const getNextPage = () =>{
-      console.log(isScrollEnd())
-      if(isScrollEnd()){
-        if(load)return
-        load = true
-        getMoreGames().then(()=>load = false)
-      }
+    h1 {
+      color: #fff;
+      font-family: KoHo semibold;
+      font-weight: 100;
+      max-width: 60%;
     }
 
-    scrollRef.current.addEventListener('scroll',getNextPage)
+    h2{
+      color: #aaa;
+      font-family: KoHo semibold;
+      font-weight: 100;
+    }
+  }
+`
 
-    return () => scrollRef.current.removeEventListener('scroll',getNextPage)
-  },[page, games])
-
-  const getMoreGames = async () => {
-    console.log(endReached)
-    if (endReached)return
-
-    console.log(query.game, page)
-
-    await api.grapi
-      .get('/games/search', {
-        params: {
-          qtd: 50,
-          index: page,
-          game: query.game,
-        },
-        headers: {
-          Authorization: await getGRBT(),
-        },
-      })
-      .then((response) => {
-        console.log('teste: ' + response.data.length)
-        setGamesData([...gamesData, ...response.data])
-        if (response.data.length < 100) setEndReached(true)
-        setPage(page + 1)
-      })
+const SearchScreen = ({ games }: SearchScreenProps) => {
+  /*const compareCategory = (a: GameType, b: GameType) => {
+    return a.category - b.category
   }*/
+
+  const {query} = useRouter()
+
+  const compareRelease = (a: GameType, b: GameType) => {
+    if (a.total_rating_count < b.total_rating_count) {
+      return 1
+    }
+    if (a.total_rating_count > b.total_rating_count) {
+      return -1
+    }
+    return 0
+  }
 
   return (
     <HomeContainer>
@@ -99,12 +94,31 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
         <title>Game room</title>
       </Head>
       <SearchHeader />
-      <HomeContentContainer >
-        <GamesLibrarySection
-          loadingItemsCount={50}
-          type={'grid'}
-          data={games}
-        />
+      <HomeContentContainer>
+        {games.length === 0 ? (
+          <BlankGamesSearch>
+            <Logo size={'8rem'} />
+            <div>
+              <h1>Oops, não encontramos nada relacionado a "{query.game}"</h1>
+              <h2>Tente pesquisar algo diferente</h2>
+            </div>
+          </BlankGamesSearch>
+        ) : (
+          <GamesLibrarySection
+            loadingItemsCount={50}
+            type={'grid'}
+            data={games
+              .map((game) => {
+                return {
+                  ...game,
+                  total_rating_count: game.total_rating_count
+                    ? game.total_rating_count
+                    : 0,
+                }
+              })
+              .sort(compareRelease)}
+          />
+        )}
       </HomeContentContainer>
     </HomeContainer>
   )
@@ -133,7 +147,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     })
     .then((response) => (data = response.data))
     .catch((error) => {
-      console.log(error)
       data = 'not-found'
     })
 

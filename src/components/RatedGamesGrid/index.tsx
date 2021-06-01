@@ -85,7 +85,6 @@ const RatedGamesGrid = ({
   
   const GameHandle = (slug) =>{
     route.push('/game/'+slug)
-    console.log('teste')
   }
 
   if (loading)

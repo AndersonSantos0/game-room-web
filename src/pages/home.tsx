@@ -37,8 +37,6 @@ const Home = () => {
       },
     })
 
-    console.log(response.data)
-
     setRatedGames(response.data)
     setLoadingRatedGames(false)
   }

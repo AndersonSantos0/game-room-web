@@ -21,6 +21,7 @@ import Carousel, { ButtonGroupProps, DotProps } from 'react-multi-carousel'
 import YouTube from 'react-youtube'
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
 import { useImageView } from '../../contexts/ImageViewerContext'
+import SearchHeader from '../../components/SearchHeader'
 
 const responsive = {
   eight: {
@@ -122,10 +123,6 @@ const GameScreen = ({ game }: GameScreenProps) => {
   )
   const { showImage } = useImageView()
 
-  useEffect(() => {
-    console.log(game)
-  }, [])
-
   const [publisher] = useState(
     game.involved_companies &&
       (game.involved_companies.filter((company) => company.publisher).length > 0
@@ -150,6 +147,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
         }}
       />
       <GameScreenContent>
+        {/*<SearchHeader fixed />*/}
         <header>
           <GameCover
             style={{ cursor: game.cover ? 'pointer' : 'default' }}
@@ -324,7 +322,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     })
     .then((response) => (data = response.data))
     .catch((error) => {
-      console.log(error)
       data = 'not-found'
     })
 

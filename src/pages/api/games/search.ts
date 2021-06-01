@@ -20,8 +20,16 @@ export default async function handler(req, res) {
   }
 
   const query = `
-    fields name, summary, storyline, cover.image_id, first_release_date, videos.video_id, slug;
+    fields name, summary, storyline, cover.image_id, first_release_date, videos.video_id, slug, total_rating_count, category;
     search "${req.query?.game}";
+    limit: ${req.query?.qtd || 30};
+    offset: ${Number(req.query.index) > 0 ? Number(req.query.index) * Number(req.query.qtd) : 0};
+  `
+
+  const newQuery = `
+    fields name, summary, storyline, cover.image_id, first_release_date, videos.video_id, slug;
+    where name = *"${req.query?.game}"*;
+    sort total_rating_count desc;
     limit: ${req.query?.qtd || 30};
     offset: ${Number(req.query.index) > 0 ? Number(req.query.index) * Number(req.query.qtd) : 0};
   `
