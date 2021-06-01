@@ -44,6 +44,8 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
   useEffect(()=>{
     setGamesData(games)
     setEndReached(false)
+    console.log(games.length)
+    if(games.length < 40)setEndReached(true)
     setPage(1)
     scrollRef.current.scrollTop = 0
   },[games])
