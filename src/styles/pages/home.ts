@@ -23,7 +23,7 @@ export const HomeContentContainer = styled.div`
     font-family: KoHo semibold;
     font-weight: 100;
     font-size: 1.5rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
   }
 
   ::-webkit-scrollbar {

@@ -128,8 +128,8 @@ export const GameRating = styled.div`
   right: 0;
   bottom: 0;
   background-color: orange;
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,7 +138,7 @@ export const GameRating = styled.div`
   transition: border .2s;
   color: #fff;
   font-family: KoHo semibold;
-  font-size: 1.2rem;
+  font-size: 1rem;
 `
 
 interface GameItemVideoProps{

@@ -40,6 +40,10 @@ export const GamesLibrarySlideContainer = styled.section`
     .dots{
       opacity: 1;
     }
+
+    .arrows{
+      opacity: 1;
+    }
   }
 
 `
@@ -50,8 +54,10 @@ export const GamesLibrarySlideArrows = styled.div`
   border-radius: 0.5rem;
   overflow: hidden;
   position: absolute;
+  transition: .2s;
   top: 0;
   right: 0;
+  opacity: 0;
   
   > button{
     display: flex;

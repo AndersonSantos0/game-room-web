@@ -8,10 +8,12 @@ import RatedGamesGrid from '../components/RatedGamesGrid'
 import SearchHeader from '../components/SearchHeader'
 
 const Home = () => {
+  const [topGames, setTopGames] = useState([])
   const [ratedGames, setRatedGames] = useState([])
   const [newestGames, setNewestGames] = useState([])
   const [comingGames, setComingGames] = useState([])
   const [recentlyReviewedGames, setRecentlyReviewedGames] = useState([])
+  const [loadingTopGames, setLoadingTopGames] = useState(true)
   const [loadingRatedGames, setLoadingRatedGames] = useState(true)
   const [loadingNewestGames, setLoadingNewestGames] = useState(true)
   const [loadingComingGames, setLoadingComingGames] = useState(true)
@@ -19,19 +21,22 @@ const Home = () => {
     useState(true)
 
   useEffect(() => {
+    getTopGames()
     getRatedGames()
     getNewestGames()
     getComingGames()
     getRecentlyReviwedGames()
   }, [])
 
+  const params = {
+    qtd: 30,
+    index: 0,
+  }
+
   const getRatedGames = async () => {
     setLoadingRatedGames(true)
     const response = await axios.get('/api/games/rating', {
-      params: {
-        qtd: 30,
-        index: 0,
-      },
+      params,
       headers: {
         Authorization: await getGRBT(),
       },
@@ -41,13 +46,23 @@ const Home = () => {
     setLoadingRatedGames(false)
   }
 
+  const getTopGames = async () => {
+    setLoadingTopGames(true)
+    const response = await axios.get('/api/games/top', {
+      params,
+      headers: {
+        Authorization: await getGRBT(),
+      },
+    })
+
+    setTopGames(response.data)
+    setLoadingTopGames(false)
+  }
+
   const getNewestGames = async () => {
     setLoadingNewestGames(true)
     const response = await axios.get('/api/games/newest', {
-      params: {
-        qtd: 30,
-        index: 0,
-      },
+      params,
       headers: {
         Authorization: await getGRBT(),
       },
@@ -60,10 +75,7 @@ const Home = () => {
   const getComingGames = async () => {
     setLoadingComingGames(true)
     const response = await axios.get('/api/games/coming', {
-      params: {
-        qtd: 30,
-        index: 0,
-      },
+      params,
       headers: {
         Authorization: await getGRBT(),
       },
@@ -96,16 +108,23 @@ const Home = () => {
       </Head>
       <SearchHeader />
       <HomeContentContainer>
+        <GamesLibrarySection
+          loading={loadingRatedGames}
+          title={`Populares de ${new Date().getFullYear()}`}
+          type={'slide'}
+          data={ratedGames}
+          showRating
+        />
         <h1>Revisados recentemente</h1>
         <RatedGamesGrid
           games={recentlyReviewedGames}
           loading={loadingRecentlyReviewedGames}
         />
         <GamesLibrarySection
-          loading={loadingRatedGames}
-          title={`Populares de ${new Date().getFullYear()}`}
+          loading={loadingTopGames}
+          title="Populares"
           type={'slide'}
-          data={ratedGames}
+          data={topGames}
           showRating
         />
         <GamesLibrarySection

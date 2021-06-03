@@ -30,25 +30,25 @@ const responsive = {
     partialVisibilityGutter: 8,
   },
   five: {
-    breakpoint: { max: 1500, min: 0 },
+    breakpoint: { max: 1300, min: 0 },
     items: 5,
     slidesToSlide: 5,
     partialVisibilityGutter: 8,
   },
   four: {
-    breakpoint: { max: 1250, min: 0 },
+    breakpoint: { max: 1000, min: 0 },
     items: 4,
     slidesToSlide: 4,
     partialVisibilityGutter: 12,
   },
   three: {
-    breakpoint: { max: 1100, min: 0 },
+    breakpoint: { max: 900, min: 0 },
     items: 3,
     slidesToSlide: 3,
     partialVisibilityGutter: 16,
   },
   two: {
-    breakpoint: { max: 800, min: 0 },
+    breakpoint: { max: 700, min: 0 },
     items: 2,
     slidesToSlide: 2,
     partialVisibilityGutter: 24,
@@ -97,7 +97,7 @@ interface CarouselButtonGroupProps extends ButtonGroupProps {
 
 const CustomButtonGroupAsArrows = ({ previous, next, loading, enabledLeftArrrow, enabledRightArrrow}: CarouselButtonGroupProps) => {
   return (
-    <GamesLibrarySlideArrows>
+    <GamesLibrarySlideArrows className="arrows">
       <button
         disabled={loading || !enabledLeftArrrow}
         onClick={previous}
@@ -136,8 +136,6 @@ const GamesLibrarySection = ({
   loadingItemsCount = 30,
   showRating
 }: GamesLibrarySectionProps) => {
-  const [enabledLeftArrrow, setEnabledLeftArrrow] = useState(false)
-  const [enabledRightArrrow, setEnabledRightArrrow] = useState(true)
   const [loadingRenderCount] = useState(new Array(loadingItemsCount).fill(null))
 
   if (type === 'grid')
