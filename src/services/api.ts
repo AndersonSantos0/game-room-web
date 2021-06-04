@@ -1,12 +1,11 @@
 import axios from "axios"
 
-const client_id = "15jkk9eg5ozqiosdn5ev1vcx5j7t5f"
-const client_secret = "79vx4dhidl32zqa0pit4lebdz0ordv"
+const client_id = process.env.CLIENT_ID
+const client_secret = process.env.CLIENT_SECRET
 const grant_type = "client_credentials"
 const isProd = process.env.NODE_ENV === "production"
 
 export const getGRBT = async () => {
-
   const response = await axios.post('https://id.twitch.tv/oauth2/token', null, {
     params: {
       client_id,

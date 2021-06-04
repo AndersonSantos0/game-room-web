@@ -2,7 +2,7 @@ import moment from 'moment'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { api, getGRBT } from '../../services/api'
+import { api } from '../../services/api'
 import { PieChart } from 'react-minimal-pie-chart'
 import {
   CriticRating,
@@ -11,8 +11,9 @@ import {
   GameInfo,
   GameScreenContainer,
   GameScreenContent,
+  ScreenshotsArrowsContainer,
   ScreenshotsContainer,
-  ScreenshotsContainerArrowsContainer,
+  ScreenshotsDots,
   TotalRating,
 } from '../../styles/pages/game'
 import NotFound from '../404'
@@ -21,7 +22,6 @@ import Carousel, { ButtonGroupProps, DotProps } from 'react-multi-carousel'
 import YouTube from 'react-youtube'
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
 import { useImageView } from '../../contexts/ImageViewerContext'
-import SearchHeader from '../../components/SearchHeader'
 
 const responsive = {
   eight: {
@@ -32,12 +32,12 @@ const responsive = {
   },
 }
 
-type GenreType = {
+type NameType = {
   id: number
   name: string
 }
 
-type ScreenshotType = {
+type ImageType = {
   id: number
   image_id: string
 }
@@ -56,11 +56,6 @@ type CompanyType = {
   publisher: boolean
 }
 
-type PlatformsType = {
-  id: number
-  name: string
-}
-
 type GameType = {
   id: number
   cover?: {
@@ -69,55 +64,41 @@ type GameType = {
   }
   first_release_date?: number
   name: string
-  screenshots?: ScreenshotType[]
+  screenshots?: ImageType[]
   storyline?: string
   summary?: string
   videos?: VideosType[]
   involved_companies?: CompanyType[]
-  genres?: GenreType[]
+  genres?: NameType[]
   aggregated_rating?: number
   total_rating?: number
   aggregated_rating_count?: number
   total_rating_count?: number
-  platforms?: PlatformsType[]
-  artworks?: ScreenshotType[]
+  platforms?: NameType[]
+  artworks?: ImageType[]
 }
 
 interface GameScreenProps {
   game: GameType | 'not-found'
 }
 
-const CustomDots = ({ active, onClick }: DotProps) => {
-  return (
-    <div
-      style={{
-        height: 2.5,
-        background: active ? '#fff' : 'rgba(255,255,255,.4)',
-        width: 18,
-        margin: '0 2px',
-      }}
-      onClick={onClick}
-    />
-  )
-}
+const CustomDots = ({ active, onClick }: DotProps) => <ScreenshotsDots active={active} onClick={onClick} />
 
-const CustomButtonGroupAsArrows = ({ previous, next }: ButtonGroupProps) => {
-  return (
-    <ScreenshotsContainerArrowsContainer>
-      <button style={{ pointerEvents: 'all' }} onClick={previous}>
-        <HiOutlineChevronLeft color="#fff" size={'2.5rem'} />
-      </button>
-      <button style={{ pointerEvents: 'all' }} onClick={next}>
-        <HiOutlineChevronRight color="#fff" size={'2.5rem'} />
-      </button>
-    </ScreenshotsContainerArrowsContainer>
-  )
-}
+const CustomButtonGroupAsArrows = ({ previous, next }: ButtonGroupProps) => (
+  <ScreenshotsArrowsContainer>
+    <button style={{ pointerEvents: 'all' }} onClick={previous}>
+      <HiOutlineChevronLeft color="#fff" size={'2.5rem'} />
+    </button>
+    <button style={{ pointerEvents: 'all' }} onClick={next}>
+      <HiOutlineChevronRight color="#fff" size={'2.5rem'} />
+    </button>
+  </ScreenshotsArrowsContainer>
+)
+
 
 const GameScreen = ({ game }: GameScreenProps) => {
   if (game === 'not-found') return <NotFound />
 
-  const [viewImageId, setViewImageId] = useState('')
   const [randomScreenShot] = useState(
     Math.floor(Math.random() * (game.screenshots?.length - 1))
   )
@@ -125,10 +106,10 @@ const GameScreen = ({ game }: GameScreenProps) => {
 
   const [publisher] = useState(
     game.involved_companies &&
-      (game.involved_companies.filter((company) => company.publisher).length > 0
-        ? game.involved_companies?.filter((company) => company.publisher)[0]
-            .company.name
-        : game.involved_companies[0].company.name)
+    (game.involved_companies.filter((company) => company.publisher).length > 0
+      ? game.involved_companies?.filter((company) => company.publisher)[0]
+        .company.name
+      : game.involved_companies[0].company.name)
   )
 
   return (
@@ -138,12 +119,11 @@ const GameScreen = ({ game }: GameScreenProps) => {
       </Head>
       <GameBackCover
         style={{
-          backgroundImage: `url(${
-            game?.screenshots &&
+          backgroundImage: `url(${game?.screenshots &&
             'https://images.igdb.com/igdb/image/upload/t_720p/' +
-              game.screenshots[randomScreenShot].image_id +
-              '.png'
-          })`,
+            game.screenshots[randomScreenShot].image_id +
+            '.png'
+            })`,
         }}
       />
       <GameScreenContent>
@@ -275,7 +255,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 </div>
               ))}
               {game.artworks?.map((image) => (
-                <div key={image.id}  onClick={() => showImage(image.image_id)}>
+                <div key={image.id} onClick={() => showImage(image.image_id)}>
                   <Image
                     draggable={false}
                     objectFit={'cover'}
@@ -286,7 +266,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 </div>
               ))}
               {game.screenshots?.map((image) => (
-                <div key={image.id}  onClick={() => showImage(image.image_id)}>
+                <div key={image.id} onClick={() => showImage(image.image_id)}>
                   <Image
                     draggable={false}
                     objectFit={'cover'}
@@ -315,11 +295,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const { slug } = ctx.params
   let data
   await api.grapi
-    .get(`games/${slug}`, {
-      headers: {
-        Authorization: await getGRBT(),
-      },
-    })
+    .get(`games/${slug}`)
     .then((response) => (data = response.data))
     .catch((error) => {
       data = 'not-found'

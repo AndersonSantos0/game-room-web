@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { HomeContainer, HomeContentContainer } from '../styles/pages/home'
 import axios from 'axios'
-import { getGRBT } from '../services/api'
 import GamesLibrarySection from '../components/NewGamesLibrarySection'
 import Head from 'next/head'
 import RatedGamesGrid from '../components/RatedGamesGrid'
@@ -36,10 +35,7 @@ const Home = () => {
   const getRatedGames = async () => {
     setLoadingRatedGames(true)
     const response = await axios.get('/api/games/rating', {
-      params,
-      headers: {
-        Authorization: await getGRBT(),
-      },
+      params
     })
 
     setRatedGames(response.data)
@@ -49,10 +45,7 @@ const Home = () => {
   const getTopGames = async () => {
     setLoadingTopGames(true)
     const response = await axios.get('/api/games/top', {
-      params,
-      headers: {
-        Authorization: await getGRBT(),
-      },
+      params
     })
 
     setTopGames(response.data)
@@ -62,10 +55,7 @@ const Home = () => {
   const getNewestGames = async () => {
     setLoadingNewestGames(true)
     const response = await axios.get('/api/games/newest', {
-      params,
-      headers: {
-        Authorization: await getGRBT(),
-      },
+      params
     })
 
     setNewestGames(response.data)
@@ -75,10 +65,7 @@ const Home = () => {
   const getComingGames = async () => {
     setLoadingComingGames(true)
     const response = await axios.get('/api/games/coming', {
-      params,
-      headers: {
-        Authorization: await getGRBT(),
-      },
+      params
     })
 
     setComingGames(response.data)
@@ -91,10 +78,7 @@ const Home = () => {
       params: {
         qtd: 5,
         index: 0,
-      },
-      headers: {
-        Authorization: await getGRBT(),
-      },
+      }
     })
 
     setRecentlyReviewedGames(response.data)

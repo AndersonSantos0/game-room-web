@@ -1,7 +1,7 @@
 import Cors from 'cors'
 import { useRouter } from 'next/router'
 import initMiddleware from "../../../lib/init-middleware"
-import { api } from "../../../services/api"
+import { api, getGRBT } from "../../../services/api"
 
 const cors = initMiddleware(
   // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   await cors(req, res)
 
   const headers = {
-    "Authorization": req.headers.authorization,
+    "Authorization": await getGRBT()
   }
 
   const query = `

@@ -1,13 +1,12 @@
 import React from 'react'
-import { HomeContainer, HomeContentContainer } from '../../../styles/pages/home'
-import { api, getGRBT } from '../../../services/api'
+import { api } from '../../../services/api'
 import GamesLibrarySection from '../../../components/NewGamesLibrarySection'
 import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import SearchHeader from '../../../components/SearchHeader'
-import styled from 'styled-components'
 import Logo from '../../../components/Logo'
 import { useRouter } from 'next/router'
+import { SearchContainer, SearchContentContainer, BlankGamesSearch } from '../../../styles/pages/search'
 
 type videoType = {
   id: number
@@ -33,44 +32,6 @@ interface SearchScreenProps {
   games: GameType[]
 }
 
-const BlankGamesSearch = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 0 4rem;
-
-  svg {
-    filter: grayscale(0.5);
-    animation: FailLogo 2s ease-in-out infinite;
-  }
-
-  div {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    width: 100%;
-
-    h1 {
-      color: #fff;
-      font-family: KoHo semibold;
-      font-weight: 100;
-      max-width: 60%;
-    }
-
-    h2{
-      color: #aaa;
-      font-family: KoHo semibold;
-      font-weight: 100;
-    }
-  }
-`
-
 const SearchScreen = ({ games }: SearchScreenProps) => {
   /*const compareCategory = (a: GameType, b: GameType) => {
     return a.category - b.category
@@ -89,12 +50,12 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
   }
 
   return (
-    <HomeContainer>
+    <SearchContainer>
       <Head>
         <title>Game room</title>
       </Head>
       <SearchHeader />
-      <HomeContentContainer>
+      <SearchContentContainer>
         {games.length === 0 ? (
           <BlankGamesSearch>
             <Logo size={'8rem'} />
@@ -119,8 +80,8 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
               .sort(compareRelease)}
           />
         )}
-      </HomeContentContainer>
-    </HomeContainer>
+      </SearchContentContainer>
+    </SearchContainer>
   )
 }
 
@@ -140,10 +101,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         qtd: 100,
         index: 0,
         game,
-      },
-      headers: {
-        Authorization: await getGRBT(),
-      },
+      }
     })
     .then((response) => (data = response.data))
     .catch((error) => {

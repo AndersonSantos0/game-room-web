@@ -195,7 +195,7 @@ export const ScreenshotsContainer = styled.div`
   }
 `
 
-export const ScreenshotsContainerArrowsContainer = styled.div`
+export const ScreenshotsArrowsContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -228,6 +228,17 @@ export const ScreenshotsContainerArrowsContainer = styled.div`
       outline: none;
     }
   }
+`
+
+interface ScreenshotsDotsProps {
+  active?: boolean
+}
+
+export const ScreenshotsDots = styled.div<ScreenshotsDotsProps>`
+  height: 2.5px;
+  background: ${props => props.active ? '#fff' : 'rgba(255,255,255,.4)'};
+  width: 18px;
+  margin: 0 2px;
 `
 
 export const GameCover = styled.div`

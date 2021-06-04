@@ -43,12 +43,11 @@ const LoadingBar = styled.div<LoadingBarProps>`
   &:after{
     content: '';
     position: absolute;
-    width: 64px;
-    height: 32px;
-    left: 100%;
-    top: 100%;
+    width: 32px;
+    height: 2px;
+    left: 0;
+    top: 0;
     background: var(--secondary);
-    transform: rotateZ(45deg) translate(-50%);
     ${props => props.loading && css`
       animation: routeLoading 3s infinite;
     `}

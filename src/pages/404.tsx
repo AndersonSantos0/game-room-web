@@ -1,65 +1,7 @@
 import Head from 'next/head'
 import Particles from 'react-particles-js'
-import styled from 'styled-components'
 import Logo from '../components/Logo'
-
-const NotFoundContainer = styled.div`
-  background-color: rgba(0,0,0,.75);
-  backdrop-filter: blur(96px);
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: #fff;
-  pointer-events: visible;
-
-  section {
-    padding: 0 4rem;
-    font-family: KoHo semibold;
-    position: relative;
-    z-index: 1;
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 1.5rem;
-    }
-  }
-`
-
-const NotFoundCodeContainer = styled.div`
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  border-right: solid 1px #666;
-  padding: 0 4rem;
-  font-family: KoHo semibold;
-  position: relative;
-  z-index: 1;
-
-  > svg {
-    filter: grayscale(0.8);
-    animation: FailLogo 2s ease-in-out infinite;
-    opacity: .8;
-  }
-
-  @keyframes FailLogo {
-    0% {
-      filter: grayscale(0.6);
-    }
-    50% {
-      filter: grayscale(1);
-    }
-    100% {
-      filter: grayscale(0.6);
-    }
-  }
-`
+import { NotFoundCodeContainer, NotFoundContainer } from '../styles/pages/errors'
 
 const NotFound = () => {
   return (
