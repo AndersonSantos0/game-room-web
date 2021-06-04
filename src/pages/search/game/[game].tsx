@@ -1,4 +1,3 @@
-import React from 'react'
 import { api } from '../../../services/api'
 import GamesLibrarySection from '../../../components/NewGamesLibrarySection'
 import Head from 'next/head'
@@ -33,11 +32,11 @@ interface SearchScreenProps {
 }
 
 const SearchScreen = ({ games }: SearchScreenProps) => {
-  /*const compareCategory = (a: GameType, b: GameType) => {
+  /* const compareCategory = (a: GameType, b: GameType) => {
     return a.category - b.category
-  }*/
+  } */
 
-  const {query} = useRouter()
+  const { query } = useRouter()
 
   const compareRelease = (a: GameType, b: GameType) => {
     if (a.total_rating_count < b.total_rating_count) {
@@ -56,30 +55,32 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
       </Head>
       <SearchHeader />
       <SearchContentContainer>
-        {games.length === 0 ? (
-          <BlankGamesSearch>
-            <Logo size={'8rem'} />
-            <div>
-              <h1>Oops, não encontramos nada relacionado a "{query.game}"</h1>
-              <h2>Tente pesquisar algo diferente</h2>
-            </div>
-          </BlankGamesSearch>
-        ) : (
-          <GamesLibrarySection
-            loadingItemsCount={50}
-            type={'grid'}
-            data={games
-              .map((game) => {
-                return {
-                  ...game,
-                  total_rating_count: game.total_rating_count
-                    ? game.total_rating_count
-                    : 0,
-                }
-              })
-              .sort(compareRelease)}
-          />
-        )}
+        {games.length === 0
+          ? (
+            <BlankGamesSearch>
+              <Logo size={'8rem'} />
+              <div>
+                <h1>Oops, não encontramos nada relacionado a &quot;{query.game}&quot;</h1>
+                <h2>Tente pesquisar algo diferente</h2>
+              </div>
+            </BlankGamesSearch>
+            )
+          : (
+            <GamesLibrarySection
+              loadingItemsCount={50}
+              type={'grid'}
+              data={games
+                .map((game) => {
+                  return {
+                    ...game,
+                    total_rating_count: game.total_rating_count
+                      ? game.total_rating_count
+                      : 0
+                  }
+                })
+                .sort(compareRelease)}
+            />
+            )}
       </SearchContentContainer>
     </SearchContainer>
   )
@@ -88,7 +89,7 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: 'blocking'
   }
 }
 
@@ -100,19 +101,19 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       params: {
         qtd: 100,
         index: 0,
-        game,
+        game
       }
     })
     .then((response) => (data = response.data))
-    .catch((error) => {
+    .catch(() => {
       data = 'not-found'
     })
 
   return {
     props: {
-      games: data,
+      games: data
     },
-    revalidate: 60 * 60 * 24 * 1, // 24 hours
+    revalidate: 60 * 60 * 24 * 1 // 24 hours
   }
 }
 

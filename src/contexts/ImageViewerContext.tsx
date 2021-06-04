@@ -11,20 +11,20 @@ const ImageViewContext = createContext({} as ImageViewInterface)
 
 export const useImageView = () => useContext(ImageViewContext)
 
-const ImageViewProvider: React.FC = ({ children }) =>{
+const ImageViewProvider: React.FC = ({ children }) => {
   const [imageViewId, setImageViewId] = useState('')
   const [showImageViewer, setShowImageViewer] = useState(false)
 
-  const showImage = (image_id) =>{
+  const showImage = (image_id) => {
     setImageViewId(image_id)
     setShowImageViewer(true)
   }
 
-  const closeImage = () =>{
+  const closeImage = () => {
     setShowImageViewer(false)
   }
 
-  return(
+  return (
     <ImageViewContext.Provider value={{
       showImage,
       showImageViewer,

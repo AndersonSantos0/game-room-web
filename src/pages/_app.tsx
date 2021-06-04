@@ -1,11 +1,12 @@
+// eslint-disable-next-line no-use-before-define
 import React, { useEffect, useState } from 'react'
 import { AppProps } from 'next/app'
 import GlobalStyles from '../styles/global'
-import { css, ThemeProvider } from 'styled-components'
+import styled, { css, ThemeProvider } from 'styled-components'
 import theme from '../styles/theme'
 import AsideMenu from '../components/AsideMenu'
-import styled from 'styled-components'
-import 'react-multi-carousel/lib/styles.css';
+
+import 'react-multi-carousel/lib/styles.css'
 
 import '../styles/fonts.css'
 import { useRouter } from 'next/router'
@@ -67,7 +68,6 @@ const LoadingBar = styled.div<LoadingBarProps>`
 `
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
-
   const route = useRouter()
 
   const [loading, setLoading] = useState(false)
@@ -77,18 +77,18 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       setLoading(true)
     }
 
-    const handleRouteChanged = (url) =>{
+    const handleRouteChanged = (url) => {
       setLoading(false)
-    } 
+    }
 
     route.events.on('routeChangeStart', handleRouteChange)
     route.events.on('routeChangeComplete', handleRouteChanged)
 
-    return ()=>{
+    return () => {
       route.events.off('routeChangeStart', handleRouteChange)
       route.events.off('routeChangeComplete', handleRouteChanged)
     }
-  },[])
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>

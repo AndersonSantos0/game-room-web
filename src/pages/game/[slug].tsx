@@ -14,10 +14,10 @@ import {
   ScreenshotsArrowsContainer,
   ScreenshotsContainer,
   ScreenshotsDots,
-  TotalRating,
+  TotalRating
 } from '../../styles/pages/game'
 import NotFound from '../404'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Carousel, { ButtonGroupProps, DotProps } from 'react-multi-carousel'
 import YouTube from 'react-youtube'
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi'
@@ -28,8 +28,8 @@ const responsive = {
     breakpoint: { max: 3000, min: 0 },
     items: 2,
     slidesToSlide: 2,
-    partialVisibilityGutter: 8,
-  },
+    partialVisibilityGutter: 8
+  }
 }
 
 type NameType = {
@@ -95,7 +95,6 @@ const CustomButtonGroupAsArrows = ({ previous, next }: ButtonGroupProps) => (
   </ScreenshotsArrowsContainer>
 )
 
-
 const GameScreen = ({ game }: GameScreenProps) => {
   if (game === 'not-found') return <NotFound />
 
@@ -123,11 +122,11 @@ const GameScreen = ({ game }: GameScreenProps) => {
             'https://images.igdb.com/igdb/image/upload/t_720p/' +
             game.screenshots[randomScreenShot].image_id +
             '.png'
-            })`,
+            })`
         }}
       />
       <GameScreenContent>
-        {/*<SearchHeader fixed />*/}
+        {/* <SearchHeader fixed /> */}
         <header>
           <GameCover
             style={{ cursor: game.cover ? 'pointer' : 'default' }}
@@ -163,8 +162,8 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 data={[
                   {
                     value: Math.floor(game.total_rating),
-                    color: 'var(--primary)',
-                  },
+                    color: 'var(--primary)'
+                  }
                 ]}
                 totalValue={100}
                 segmentsShift={0}
@@ -181,8 +180,8 @@ const GameScreen = ({ game }: GameScreenProps) => {
                 data={[
                   {
                     value: Math.floor(game.aggregated_rating),
-                    color: 'orange',
-                  },
+                    color: 'orange'
+                  }
                 ]}
                 totalValue={100}
                 segmentsShift={0}
@@ -248,8 +247,8 @@ const GameScreen = ({ game }: GameScreenProps) => {
                         fs: 0,
                         hl: 'pt',
                         iv_load_policy: 3,
-                        enablejsapi: 1,
-                      },
+                        enablejsapi: 1
+                      }
                     }}
                   />
                 </div>
@@ -287,7 +286,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: 'blocking'
   }
 }
 
@@ -297,15 +296,15 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   await api.grapi
     .get(`games/${slug}`)
     .then((response) => (data = response.data))
-    .catch((error) => {
+    .catch(() => {
       data = 'not-found'
     })
 
   return {
     props: {
-      game: data,
+      game: data
     },
-    revalidate: 60 * 60 * 24 * 1, // 24 hours
+    revalidate: 60 * 60 * 24 * 1 // 24 hours
   }
 }
 

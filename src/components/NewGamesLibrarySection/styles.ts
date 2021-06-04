@@ -1,5 +1,5 @@
-import styled from "styled-components"
-const isProd = process.env.NODE_ENV === "production"
+import styled from 'styled-components'
+const isProd = process.env.NODE_ENV === 'production'
 
 export const GamesLibraryContainerGrid = styled.section`
   display: grid;
@@ -110,4 +110,3 @@ export const GamesLibraryContainer = styled.section`
   width: 100%;
   padding: 0 1rem;
 `
-

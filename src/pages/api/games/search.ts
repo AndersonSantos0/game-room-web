@@ -1,35 +1,25 @@
 import Cors from 'cors'
-import initMiddleware from "../../../lib/init-middleware"
-import { api, getGRBT } from "../../../services/api"
+import initMiddleware from '../../../lib/init-middleware'
+import { api, getGRBT } from '../../../services/api'
 
 const cors = initMiddleware(
   // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
   Cors({
     // Only allow requests with GET, POST and OPTIONS
-    methods: ['GET'],
+    methods: ['GET']
   })
 )
 
-
-export default async function handler(req, res) {
-
+export default async function handler (req, res) {
   await cors(req, res)
 
   const headers = {
-    "Authorization": await getGRBT()
+    Authorization: await getGRBT()
   }
 
   const query = `
     fields name, summary, storyline, cover.image_id, first_release_date, videos.video_id, slug, total_rating_count, category;
     search "${req.query?.game}";
-    limit: ${req.query?.qtd || 30};
-    offset: ${Number(req.query.index) > 0 ? Number(req.query.index) * Number(req.query.qtd) : 0};
-  `
-
-  const newQuery = `
-    fields name, summary, storyline, cover.image_id, first_release_date, videos.video_id, slug;
-    where name = *"${req.query?.game}"*;
-    sort total_rating_count desc;
     limit: ${req.query?.qtd || 30};
     offset: ${Number(req.query.index) > 0 ? Number(req.query.index) * Number(req.query.qtd) : 0};
   `
@@ -40,9 +30,9 @@ export default async function handler(req, res) {
 
   const gameResponseData = gamesReponse.data
 
-  let data = gameResponseData.map(game => {
+  const data = gameResponseData.map(game => {
     return {
-      ...game, 
+      ...game
     }
   })
 

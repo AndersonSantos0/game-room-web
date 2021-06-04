@@ -3,23 +3,16 @@ import {
   GameItemActionsContainer,
   GameItemContainer,
   GameRating,
-  GameInfoBlock,
+  GameInfoBlock
 } from './styles'
 import Tilt from 'react-parallax-tilt'
 import { FaHeart } from 'react-icons/fa'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import Image from 'next/image'
 import moment from 'moment'
 import YouTube from 'react-youtube'
-import { route } from 'next/dist/next-server/server/router'
 import { useRouter } from 'next/router'
-
-let images = [
-  'https://images.igdb.com/igdb/image/upload/t_screenshot_med/sc99kt.jpg',
-  'https://images.igdb.com/igdb/image/upload/t_screenshot_med/sc99ko.jpg',
-  'https://images.igdb.com/igdb/image/upload/t_screenshot_med/sc99ks.jpg',
-]
 
 type videoType = {
   id: number
@@ -55,7 +48,7 @@ const GameItem = ({
   game,
   showRating = false,
   slidemode = false,
-  slideVars,
+  slideVars
 }: GameItemProps) => {
   const GameItemRef = useRef<HTMLDivElement>(null)
   const route = useRouter()
@@ -64,20 +57,21 @@ const GameItem = ({
   const [showVideo, setShowVideo] = useState(false)
 
   const isTooRight = () => {
-    let rem = Number(
+    const rem = Number(
       window
         .getComputedStyle(document.documentElement, null)
         .getPropertyValue('font-size')
         .replace('px', '')
     )
 
-    if (slidemode)
+    if (slidemode) {
       return (
         slideVars.slideWidth +
           slideVars.slideOffset -
           GameItemRef.current?.offsetLeft <
         rem * 35
       )
+    }
 
     return window.innerWidth - GameItemRef.current?.offsetLeft < rem * 44
   }
@@ -86,7 +80,7 @@ const GameItem = ({
     route.push('/game/' + slug)
   }
 
-  if (typeof game === 'object')
+  if (typeof game === 'object') {
     return (
       <GameItemContainer
         onClick={() => GameItemHandle(game.slug)}
@@ -107,7 +101,7 @@ const GameItem = ({
           onEnter={() => setShowVideo(true)}
           onLeave={() => setShowVideo(false)}
         >
-          {favorite && <FaHeart className={`FavoriteIcon`} size={'1.5rem'} />}
+          {favorite && <FaHeart className={'FavoriteIcon'} size={'1.5rem'} />}
           <div className="GameTiltContent">
             <h1>{game.name}</h1>
             {game.first_release_date && (
@@ -140,7 +134,7 @@ const GameItem = ({
                 onClick={() => setFavorite(!favorite)}
                 className={`GameActionButton ${favorite ? 'active' : null}`}
               >
-                <FaHeart className={`GameActionIcon`} size={'1.2rem'} />
+                <FaHeart className={'GameActionIcon'} size={'1.2rem'} />
               </div>
             </GameItemActionsContainer>
           </GameItemActions>
@@ -165,8 +159,8 @@ const GameItem = ({
                         controls: 0,
                         disablekb: 1,
                         modestbranding: 1,
-                        origin: 'https://game-room.vercel.app',
-                      },
+                        origin: 'https://game-room.vercel.app'
+                      }
                     }}
                   />
                 </div>
@@ -176,8 +170,9 @@ const GameItem = ({
         </Tilt>
       </GameItemContainer>
     )
+  }
 
-  if (game === 'seemore')
+  if (game === 'seemore') {
     return (
       <GameItemContainer
         onClick={GameItemHandle}
@@ -190,8 +185,9 @@ const GameItem = ({
         </div>
       </GameItemContainer>
     )
+  }
 
-  if (game === 'skeleton')
+  if (game === 'skeleton') {
     return (
       <GameItemContainer
         onClick={GameItemHandle}
@@ -201,6 +197,7 @@ const GameItem = ({
         <div className={'skeleton'} />
       </GameItemContainer>
     )
+  }
 }
 
 export default GameItem

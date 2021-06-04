@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const GamesLibrarySlideContainer = styled.section`
   display: flex;
@@ -72,4 +72,3 @@ export const GamesLibraryContainer = styled.section`
   width: 100%;
   padding: 0 1rem;
 `
-

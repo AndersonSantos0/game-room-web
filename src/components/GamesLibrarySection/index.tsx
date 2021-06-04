@@ -6,7 +6,7 @@ import {
   GamesLibraryHeader,
   GamesLibrarySlide,
   GamesLibrarySlideArrows,
-  GamesLibrarySlideContainer,
+  GamesLibrarySlideContainer
 } from './styles'
 
 type videoType = {
@@ -53,17 +53,17 @@ const GamesLibrarySection = ({
   const [loadingRenderCount] = useState(new Array(loadingItemsCount).fill(null))
 
   useEffect(() => {
-    if (type === 'grid')return
+    if (type === 'grid') return
 
     setScrollWidth(SlideRef.current.offsetWidth)
     setScrollOffset(SlideRef.current.scrollLeft)
 
-    const onResizeEvent = () =>{
+    const onResizeEvent = () => {
       setScrollWidth(SlideRef.current?.offsetWidth)
       setScrollOffset(SlideRef.current?.scrollLeft)
     }
 
-    const onScrollEvent = () =>{
+    const onScrollEvent = () => {
       setScrollWidth(SlideRef.current.offsetWidth)
       setScrollOffset(SlideRef.current.scrollLeft)
 
@@ -83,17 +83,17 @@ const GamesLibrarySection = ({
       }
     }
 
-    SlideRef.current?.addEventListener('scroll', ()=> onScrollEvent())
+    SlideRef.current?.addEventListener('scroll', () => onScrollEvent())
     window.addEventListener('resize', () => onResizeEvent())
 
-    return () =>{
+    return () => {
       SlideRef.current?.removeEventListener('scroll', () => onScrollEvent())
       SlideRef.current?.removeEventListener('resize', () => onResizeEvent())
     }
   }, [])
 
   const handleLeftArrow = () => {
-    let rem = Number(
+    const rem = Number(
       window
         .getComputedStyle(document.documentElement, null)
         .getPropertyValue('font-size')
@@ -102,18 +102,19 @@ const GamesLibrarySection = ({
     if (
       SlideRef.current.offsetWidth + SlideRef.current.scrollLeft ===
       SlideRef.current.scrollWidth
-    )
+    ) {
       return (SlideRef.current.scrollLeft =
         SlideRef.current.scrollLeft -
         (Math.floor(SlideRef.current.offsetWidth / (rem * 18)) - 1) *
           (rem * 18))
+    }
     return (SlideRef.current.scrollLeft =
       SlideRef.current.scrollLeft -
       Math.floor(SlideRef.current.offsetWidth / (rem * 18)) * (rem * 18))
   }
 
   const handleRightArrow = () => {
-    let rem = Number(
+    const rem = Number(
       window
         .getComputedStyle(document.documentElement, null)
         .getPropertyValue('font-size')
@@ -124,7 +125,7 @@ const GamesLibrarySection = ({
       Math.floor(SlideRef.current.offsetWidth / (rem * 18)) * (rem * 18))
   }
 
-  if (type === 'grid')
+  if (type === 'grid') {
     return (
       <GamesLibraryContainer>
         {data.map((game) => {
@@ -132,8 +133,9 @@ const GamesLibrarySection = ({
         })}
       </GamesLibraryContainer>
     )
+  }
 
-  if (type === 'slide')
+  if (type === 'slide') {
     return (
       <GamesLibrarySlideContainer>
         <GamesLibraryHeader>
@@ -156,7 +158,7 @@ const GamesLibrarySection = ({
                 slidemode
                 slideVars={{
                   slideOffset: scrollOffset,
-                  slideWidth: scrollWidth,
+                  slideWidth: scrollWidth
                 }}
                 showRating={showRating}
                 key={game.id}
@@ -165,12 +167,13 @@ const GamesLibrarySection = ({
             )
           })}
           { !loading && <GameItem showRating={showRating} game={'seemore'} />}
-          <div style={{position: 'absolute', display: 'flex', width: '100%', zIndex: -1}}>
-          { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
+          <div style={{ position: 'absolute', display: 'flex', width: '100%', zIndex: -1 }}>
+          { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} />) }
           </div>
         </GamesLibrarySlide>
       </GamesLibrarySlideContainer>
     )
+  }
 }
 
 export default GamesLibrarySection

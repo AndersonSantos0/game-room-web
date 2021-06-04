@@ -2,11 +2,10 @@ import {
   Cover,
   RatedGamesGridContainer,
   RatedGamesGridContent,
-  GameRating,
+  GameRating
 } from './styles'
 import Tilt from 'react-parallax-tilt'
 import Image from 'next/image'
-import moment from 'moment'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -45,17 +44,17 @@ const RatedGameSlide = ({ screenshots }: RatedGameSlideProps) => {
   const [counter, setCounter] = useState(0)
   const CoverRef = useRef<HTMLDivElement>(null)
 
+  const SlideIncrement = () => {
+    setCounter((prev) => (prev + 1 < screenshots.length - 1 ? prev + 1 : 0))
+  }
+
   useEffect(() => {
-    let Timer = setInterval(() => {
+    const Timer = setInterval(() => {
       SlideIncrement()
     }, 15000)
 
     return () => clearInterval(Timer)
   }, [])
-
-  const SlideIncrement = () => {
-    setCounter((prev) => (prev + 1 < screenshots.length - 1 ? prev + 1 : 0))
-  }
 
   return (
     <Cover ref={CoverRef} length={screenshots.length} counter={counter}>
@@ -78,16 +77,16 @@ const RatedGameSlide = ({ screenshots }: RatedGameSlideProps) => {
 
 const RatedGamesGrid = ({
   games = [],
-  loading = false,
+  loading = false
 }: RatedGamesGridProps) => {
   const route = useRouter()
   const [loadingSkeletonList] = useState(new Array(5).fill(null))
-  
-  const GameHandle = (slug) =>{
-    route.push('/game/'+slug)
+
+  const GameHandle = (slug) => {
+    route.push('/game/' + slug)
   }
 
-  if (loading)
+  if (loading) {
     return (
       <RatedGamesGridContainer>
         {loadingSkeletonList.map((game, idx) => {
@@ -108,6 +107,7 @@ const RatedGamesGrid = ({
         })}
       </RatedGamesGridContainer>
     )
+  }
 
   return (
     <RatedGamesGridContainer>
@@ -143,7 +143,7 @@ const RatedGamesGrid = ({
 
             <RatedGameSlide screenshots={game.screenshots} />
 
-            <RatedGamesGridContent onClick={()=>GameHandle(game.slug)}>
+            <RatedGamesGridContent onClick={() => GameHandle(game.slug)}>
               <h1>{game.name}</h1>
               <h2>{game.genres && game.genres[game.genres.length - 1].name}</h2>
               <GameRating className={'GameRating'}>

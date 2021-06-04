@@ -6,7 +6,7 @@ import {
   GamesLibraryContainer,
   GamesLibraryHeader,
   GamesLibrarySlideArrows,
-  GamesLibrarySlideContainer,
+  GamesLibrarySlideContainer
 } from './styles'
 import 'react-multi-carousel/lib/styles.css'
 
@@ -15,50 +15,50 @@ const responsive = {
     breakpoint: { max: 3000, min: 0 },
     items: 8,
     slidesToSlide: 8,
-    partialVisibilityGutter: 8,
+    partialVisibilityGutter: 8
   },
   seven: {
     breakpoint: { max: 2000, min: 0 },
     items: 7,
     slidesToSlide: 7,
-    partialVisibilityGutter: 8,
+    partialVisibilityGutter: 8
   },
   six: {
     breakpoint: { max: 1800, min: 0 },
     items: 6,
     slidesToSlide: 6,
-    partialVisibilityGutter: 8,
+    partialVisibilityGutter: 8
   },
   five: {
     breakpoint: { max: 1300, min: 0 },
     items: 5,
     slidesToSlide: 5,
-    partialVisibilityGutter: 8,
+    partialVisibilityGutter: 8
   },
   four: {
     breakpoint: { max: 1000, min: 0 },
     items: 4,
     slidesToSlide: 4,
-    partialVisibilityGutter: 12,
+    partialVisibilityGutter: 12
   },
   three: {
     breakpoint: { max: 900, min: 0 },
     items: 3,
     slidesToSlide: 3,
-    partialVisibilityGutter: 16,
+    partialVisibilityGutter: 16
   },
   two: {
     breakpoint: { max: 700, min: 0 },
     items: 2,
     slidesToSlide: 2,
-    partialVisibilityGutter: 24,
+    partialVisibilityGutter: 24
   },
   one: {
     breakpoint: { max: 600, min: 0 },
     items: 1,
     slidesToSlide: 1,
-    partialVisibilityGutter: 96,
-  },
+    partialVisibilityGutter: 96
+  }
 }
 
 type videoType = {
@@ -95,7 +95,7 @@ interface CarouselButtonGroupProps extends ButtonGroupProps {
   enabledRightArrrow?: boolean;
 }
 
-const CustomButtonGroupAsArrows = ({ previous, next, loading, enabledLeftArrrow, enabledRightArrrow}: CarouselButtonGroupProps) => {
+const CustomButtonGroupAsArrows = ({ previous, next, loading, enabledLeftArrrow, enabledRightArrrow }: CarouselButtonGroupProps) => {
   return (
     <GamesLibrarySlideArrows className="arrows">
       <button
@@ -121,7 +121,7 @@ const CustomDots = ({ active, onClick }: DotProps) => {
         height: 2.5,
         background: active ? '#fff' : 'rgba(255,255,255,.4)',
         width: 18,
-        margin: '0 2px',
+        margin: '0 2px'
       }}
       onClick={onClick}
     />
@@ -138,17 +138,18 @@ const GamesLibrarySection = ({
 }: GamesLibrarySectionProps) => {
   const [loadingRenderCount] = useState(new Array(loadingItemsCount).fill(null))
 
-  if (type === 'grid')
+  if (type === 'grid') {
     return (
       <GamesLibraryContainer>
         {data.map((game, idx) => {
           return <GameItem key={game.id + idx + Math.random()} game={game} />
         })}
-        { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} /> ) }
+        { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} />) }
       </GamesLibraryContainer>
     )
+  }
 
-  if (type === 'slide')
+  if (type === 'slide') {
     return (
       <GamesLibrarySlideContainer>
         <GamesLibraryHeader>
@@ -175,10 +176,11 @@ const GamesLibrarySection = ({
           { !loading && data.map((game, idx) => {
             return <GameItem showRating={showRating} key={game.id + idx + Math.random()} game={game} />
           })}
-          { loading && loadingRenderCount.map((item, key) => <GameItem key={key} game={"skeleton"}/>)}
+          { loading && loadingRenderCount.map((item, key) => <GameItem key={key} game={'skeleton'}/>)}
         </Carousel>
       </GamesLibrarySlideContainer>
     )
+  }
 }
 
 export default GamesLibrarySection

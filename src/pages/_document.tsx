@@ -5,12 +5,12 @@ import Document, {
   Main,
   NextScript,
   DocumentContext,
-  DocumentInitialProps,
+  DocumentInitialProps
 } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
-  static async getInitialProps(
+  static async getInitialProps (
     ctx: DocumentContext
   ): Promise<DocumentInitialProps> {
     const sheet = new ServerStyleSheet()
@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
+            sheet.collectStyles(<App {...props} />)
         })
 
       const initalProps = await Document.getInitialProps(ctx)
@@ -31,14 +31,14 @@ export default class MyDocument extends Document {
             {initalProps.styles}
             {sheet.getStyleElement()}
           </>
-        ),
+        )
       }
     } finally {
       sheet.seal()
     }
   }
 
-  render() {
+  render () {
     return (
       <Html>
         <Head>

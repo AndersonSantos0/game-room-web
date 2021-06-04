@@ -42,7 +42,7 @@ interface GameItemProps {
 
 const GameItem = ({
   game,
-  showRating = false,
+  showRating = false
 }: GameItemProps) => {
   const GameItemRef = useRef<HTMLDivElement>(null)
   const route = useRouter()
@@ -58,7 +58,7 @@ const GameItem = ({
     route.push('/game/' + slug)
   }
 
-  if (typeof game === 'object')
+  if (typeof game === 'object') {
     return (
       <GameItemContainer
         className={'GameTiltContainer'}
@@ -121,17 +121,20 @@ const GameItem = ({
                   hl: 'pt',
                   iv_load_policy: 3,
                   enablejsapi: 1
-                },
+                }
               }}
             />
           </GameItemVideo>
         )}
       </GameItemContainer>
     )
+  }
 
-    if(game === "skeleton")return(
+  if (game === 'skeleton') {
+    return (
       <GameItemSkeleton />
     )
+  }
 }
 
 export default GameItem

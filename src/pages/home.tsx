@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { HomeContainer, HomeContentContainer } from '../styles/pages/home'
 import axios from 'axios'
 import GamesLibrarySection from '../components/NewGamesLibrarySection'
@@ -19,17 +19,9 @@ const Home = () => {
   const [loadingRecentlyReviewedGames, setLoadingRecentlyReviewedGames] =
     useState(true)
 
-  useEffect(() => {
-    getTopGames()
-    getRatedGames()
-    getNewestGames()
-    getComingGames()
-    getRecentlyReviwedGames()
-  }, [])
-
   const params = {
     qtd: 30,
-    index: 0,
+    index: 0
   }
 
   const getRatedGames = async () => {
@@ -77,13 +69,21 @@ const Home = () => {
     const response = await axios.get('/api/games/recently-reviewed', {
       params: {
         qtd: 5,
-        index: 0,
+        index: 0
       }
     })
 
     setRecentlyReviewedGames(response.data)
     setLoadingRecentlyReviewedGames(false)
   }
+
+  useEffect(() => {
+    getTopGames()
+    getRatedGames()
+    getNewestGames()
+    getComingGames()
+    getRecentlyReviwedGames()
+  }, [])
 
   return (
     <HomeContainer>
