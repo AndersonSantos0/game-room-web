@@ -16,7 +16,6 @@
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "date-fns": "^2.21.3",
-    "dotenv": "^10.0.0",
     "moment": "^2.29.1",
     "react-icons": "^4.2.0",
     "react-lottie": "^1.2.3",
