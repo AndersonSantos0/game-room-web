@@ -128,7 +128,7 @@ const GamesLibrarySection = ({
   if (type === 'grid') {
     return (
       <GamesLibraryContainer>
-        {data.map((game) => {
+        {data.map(game => {
           return <GameItem key={game.id} game={game} />
         })}
       </GamesLibraryContainer>
@@ -143,32 +143,49 @@ const GamesLibrarySection = ({
             <h1>{title}</h1>
           </div>
           <GamesLibrarySlideArrows>
-            <button disabled={ loading || !enabledLeftArrrow} onClick={handleLeftArrow}>
+            <button
+              disabled={loading || !enabledLeftArrrow}
+              onClick={handleLeftArrow}
+            >
               <HiOutlineChevronLeft size={'1.5rem'} />
             </button>
-            <button disabled={ loading || !enabledRightArrrow} onClick={handleRightArrow}>
+            <button
+              disabled={loading || !enabledRightArrrow}
+              onClick={handleRightArrow}
+            >
               <HiOutlineChevronRight size={'1.5rem'} />
             </button>
           </GamesLibrarySlideArrows>
         </GamesLibraryHeader>
         <GamesLibrarySlide ref={SlideRef}>
-          { !loading && data.map((game) => {
-            return (
-              <GameItem
-                slidemode
-                slideVars={{
-                  slideOffset: scrollOffset,
-                  slideWidth: scrollWidth
-                }}
-                showRating={showRating}
-                key={game.id}
-                game={game}
-              />
-            )
-          })}
-          { !loading && <GameItem showRating={showRating} game={'seemore'} />}
-          <div style={{ position: 'absolute', display: 'flex', width: '100%', zIndex: -1 }}>
-          { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} />) }
+          {!loading &&
+            data.map(game => {
+              return (
+                <GameItem
+                  slidemode
+                  slideVars={{
+                    slideOffset: scrollOffset,
+                    slideWidth: scrollWidth
+                  }}
+                  showRating={showRating}
+                  key={game.id}
+                  game={game}
+                />
+              )
+            })}
+          {!loading && <GameItem showRating={showRating} game={'seemore'} />}
+          <div
+            style={{
+              position: 'absolute',
+              display: 'flex',
+              width: '100%',
+              zIndex: -1
+            }}
+          >
+            {loading &&
+              loadingRenderCount.map((item, key) => (
+                <GameItem key={key} showRating={showRating} game={'skeleton'} />
+              ))}
           </div>
         </GamesLibrarySlide>
       </GamesLibrarySlideContainer>

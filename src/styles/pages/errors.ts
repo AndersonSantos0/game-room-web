@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const NotFoundContainer = styled.div`
-  background-color: rgba(0,0,0,.75);
+  background-color: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(96px);
   position: relative;
   flex: 1;
@@ -14,7 +14,7 @@ export const NotFoundContainer = styled.div`
 
   section {
     padding: 0 4rem;
-    font-family: KoHo semibold;
+    font-family: KoHo semibold, sans-serif;
     position: relative;
     z-index: 1;
 
@@ -35,14 +35,14 @@ export const NotFoundCodeContainer = styled.div`
   align-items: center;
   border-right: solid 1px #666;
   padding: 0 4rem;
-  font-family: KoHo semibold;
+  font-family: KoHo semibold, sans-serif;
   position: relative;
   z-index: 1;
 
   > svg {
     filter: grayscale(0.8);
     animation: FailLogo 2s ease-in-out infinite;
-    opacity: .8;
+    opacity: 0.8;
   }
 
   @keyframes FailLogo {
@@ -59,7 +59,7 @@ export const NotFoundCodeContainer = styled.div`
 `
 
 export const ComingContainer = styled.div`
-  background-color: rgba(0,0,0,.75);
+  background-color: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(96px);
   position: relative;
   flex: 1;
@@ -72,7 +72,7 @@ export const ComingContainer = styled.div`
 
   section {
     padding: 0 4rem;
-    font-family: KoHo semibold;
+    font-family: KoHo semibold, sans-serif;
     position: relative;
     z-index: 1;
 
@@ -94,25 +94,25 @@ export const ComingCodeContainer = styled.div`
   align-items: center;
   border-right: solid 1px #666;
   padding: 0 4rem;
-  font-family: KoHo semibold;
+  font-family: KoHo semibold, sans-serif;
   position: relative;
   z-index: 1;
 
   > svg {
     filter: hue-rotate(180deg);
     animation: ComingLogo 2s ease-in-out infinite;
-    opacity: .8;
+    opacity: 0.8;
   }
 
   @keyframes ComingLogo {
     0% {
-      opacity: .6;
+      opacity: 0.6;
     }
     50% {
-      opacity: .8;
+      opacity: 0.8;
     }
     100% {
-      opacity: .6;
+      opacity: 0.6;
     }
   }
 `

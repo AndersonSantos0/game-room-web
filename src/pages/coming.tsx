@@ -15,7 +15,8 @@ const ComingScreen = () => {
       <section>
         <h1>Oops</h1>
         <p>
-          Página em construção, volte aqui em alguns dias, talvez esse caminho esteja disponível para se explorar
+          Página em construção, volte aqui em alguns dias, talvez esse caminho
+          esteja disponível para se explorar
         </p>
       </section>
       <Particles

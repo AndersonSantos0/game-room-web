@@ -15,7 +15,7 @@ const ImageViewProvider: React.FC = ({ children }) => {
   const [imageViewId, setImageViewId] = useState('')
   const [showImageViewer, setShowImageViewer] = useState(false)
 
-  const showImage = (image_id) => {
+  const showImage = image_id => {
     setImageViewId(image_id)
     setShowImageViewer(true)
   }
@@ -25,12 +25,14 @@ const ImageViewProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <ImageViewContext.Provider value={{
-      showImage,
-      showImageViewer,
-      imageViewId,
-      closeImage
-    }}>
+    <ImageViewContext.Provider
+      value={{
+        showImage,
+        showImageViewer,
+        imageViewId,
+        closeImage
+      }}
+    >
       {children}
     </ImageViewContext.Provider>
   )

@@ -10,7 +10,7 @@ import Document, {
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
-  static async getInitialProps (
+  static async getInitialProps(
     ctx: DocumentContext
   ): Promise<DocumentInitialProps> {
     const sheet = new ServerStyleSheet()
@@ -19,8 +19,7 @@ export default class MyDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />)
+          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
         })
 
       const initalProps = await Document.getInitialProps(ctx)
@@ -38,15 +37,16 @@ export default class MyDocument extends Document {
     }
   }
 
-  render () {
+  render() {
     return (
       <Html>
         <Head>
           <link rel="shortcut icon" href="/favicon.png" type="image/png" />
           <meta
-            property="og:image"
-            content="/assets/image/preview.png"
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
           />
+          <meta property="og:image" content="/assets/image/preview.png" />
         </Head>
         <body>
           <Main />

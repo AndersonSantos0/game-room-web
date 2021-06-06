@@ -76,7 +76,7 @@ const GameItem = ({
     return window.innerWidth - GameItemRef.current?.offsetLeft < rem * 44
   }
 
-  const GameItemHandle = (slug) => {
+  const GameItemHandle = slug => {
     route.push('/game/' + slug)
   }
 
@@ -150,7 +150,7 @@ const GameItem = ({
                   <YouTube
                     videoId={game.videos[0].video_id}
                     containerClassName="video"
-                    onReady={(e) => e.target.playVideo()}
+                    onReady={e => e.target.playVideo()}
                     opts={{
                       height: '100%',
                       width: '100%',

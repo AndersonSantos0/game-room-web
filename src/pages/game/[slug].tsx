@@ -82,7 +82,9 @@ interface GameScreenProps {
   game: GameType | 'not-found'
 }
 
-const CustomDots = ({ active, onClick }: DotProps) => <ScreenshotsDots active={active} onClick={onClick} />
+const CustomDots = ({ active, onClick }: DotProps) => (
+  <ScreenshotsDots active={active} onClick={onClick} />
+)
 
 const CustomButtonGroupAsArrows = ({ previous, next }: ButtonGroupProps) => (
   <ScreenshotsArrowsContainer>
@@ -105,10 +107,10 @@ const GameScreen = ({ game }: GameScreenProps) => {
 
   const [publisher] = useState(
     game.involved_companies &&
-    (game.involved_companies.filter((company) => company.publisher).length > 0
-      ? game.involved_companies?.filter((company) => company.publisher)[0]
-        .company.name
-      : game.involved_companies[0].company.name)
+      (game.involved_companies.filter(company => company.publisher).length > 0
+        ? game.involved_companies?.filter(company => company.publisher)[0]
+            .company.name
+        : game.involved_companies[0].company.name)
   )
 
   return (
@@ -118,11 +120,12 @@ const GameScreen = ({ game }: GameScreenProps) => {
       </Head>
       <GameBackCover
         style={{
-          backgroundImage: `url(${game?.screenshots &&
+          backgroundImage: `url(${
+            game?.screenshots &&
             'https://images.igdb.com/igdb/image/upload/t_720p/' +
-            game.screenshots[randomScreenShot].image_id +
-            '.png'
-            })`
+              game.screenshots[randomScreenShot].image_id +
+              '.png'
+          })`
         }}
       />
       <GameScreenContent>
@@ -154,7 +157,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
               </h2>
             )}
             <h3>{publisher}</h3>
-            <p>{game.genres?.map((genre) => genre.name).join(', ')}</p>
+            <p>{game.genres?.map(genre => genre.name).join(', ')}</p>
           </GameInfo>
           {game?.total_rating && (
             <TotalRating>
@@ -196,15 +199,17 @@ const GameScreen = ({ game }: GameScreenProps) => {
         <section>
           <div>
             <button>Favorite</button>
-            {game.platforms && <p>
-              <h3>Platforms: </h3>
-              {game.platforms.map((platform, idx) => (
-                <span key={idx}>
-                  <a href="#">{platform.name}</a>
-                  {idx + 1 === game.platforms.length ? '' : ', '}
-                </span>
-              ))}
-            </p>}
+            {game.platforms && (
+              <p>
+                <h3>Platforms: </h3>
+                {game.platforms.map((platform, idx) => (
+                  <span key={idx}>
+                    <a href="#">{platform.name}</a>
+                    {idx + 1 === game.platforms.length ? '' : ', '}
+                  </span>
+                ))}
+              </p>
+            )}
           </div>
           <main>
             <p>{game.summary}</p>
@@ -231,8 +236,8 @@ const GameScreen = ({ game }: GameScreenProps) => {
               customDot={<CustomDots />}
               customButtonGroup={<CustomButtonGroupAsArrows />}
             >
-              {game.videos?.map((video) => (
-                <div key={video.id} >
+              {game.videos?.map(video => (
+                <div key={video.id}>
                   <YouTube
                     videoId={video.video_id}
                     containerClassName="video"
@@ -253,7 +258,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                   />
                 </div>
               ))}
-              {game.artworks?.map((image) => (
+              {game.artworks?.map(image => (
                 <div key={image.id} onClick={() => showImage(image.image_id)}>
                   <Image
                     draggable={false}
@@ -264,7 +269,7 @@ const GameScreen = ({ game }: GameScreenProps) => {
                   />
                 </div>
               ))}
-              {game.screenshots?.map((image) => (
+              {game.screenshots?.map(image => (
                 <div key={image.id} onClick={() => showImage(image.image_id)}>
                   <Image
                     draggable={false}
@@ -290,12 +295,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async ctx => {
   const { slug } = ctx.params
   let data
   await api.grapi
     .get(`games/${slug}`)
-    .then((response) => (data = response.data))
+    .then(response => (data = response.data))
     .catch(() => {
       data = 'not-found'
     })

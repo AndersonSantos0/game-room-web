@@ -4,6 +4,11 @@
 }
 
 @font-face {
+  font-family: KoHo;
+  src: url('../fonts/KoHo.ttf');
+}
+
+@font-face {
   font-family: Hammersmith;
   src: url('../fonts/Hammersmith.ttf');
 }

@@ -9,21 +9,21 @@ export const ImageViewerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: imageviewerenter .4s;
+  animation: imageviewerenter 0.4s;
 
-  > img{
+  > img {
     z-index: 4;
     position: relative;
     max-width: 75%;
     max-height: calc(100% - 2rem);
-    border-radius: .25rem ;
+    border-radius: 0.25rem;
   }
 
-  @keyframes imageviewerenter{
-    0%{
+  @keyframes imageviewerenter {
+    0% {
       opacity: 0;
     }
-    100%{
+    100% {
       opacity: 1;
     }
   }
@@ -32,7 +32,7 @@ export const ImageViewerContainer = styled.div`
 export const ImageViewerBack = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,.8);
+  background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(8px);
   position: absolute;
 `

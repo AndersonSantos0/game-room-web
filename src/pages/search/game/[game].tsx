@@ -5,7 +5,11 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import SearchHeader from '../../../components/SearchHeader'
 import Logo from '../../../components/Logo'
 import { useRouter } from 'next/router'
-import { SearchContainer, SearchContentContainer, BlankGamesSearch } from '../../../styles/pages/search'
+import {
+  SearchContainer,
+  SearchContentContainer,
+  BlankGamesSearch
+} from '../../../styles/pages/search'
 
 type videoType = {
   id: number
@@ -55,32 +59,33 @@ const SearchScreen = ({ games }: SearchScreenProps) => {
       </Head>
       <SearchHeader />
       <SearchContentContainer>
-        {games.length === 0
-          ? (
-            <BlankGamesSearch>
-              <Logo size={'8rem'} />
-              <div>
-                <h1>Oops, não encontramos nada relacionado a &quot;{query.game}&quot;</h1>
-                <h2>Tente pesquisar algo diferente</h2>
-              </div>
-            </BlankGamesSearch>
-            )
-          : (
-            <GamesLibrarySection
-              loadingItemsCount={50}
-              type={'grid'}
-              data={games
-                .map((game) => {
-                  return {
-                    ...game,
-                    total_rating_count: game.total_rating_count
-                      ? game.total_rating_count
-                      : 0
-                  }
-                })
-                .sort(compareRelease)}
-            />
-            )}
+        {games.length === 0 ? (
+          <BlankGamesSearch>
+            <Logo size={'8rem'} />
+            <div>
+              <h1>
+                Oops, não encontramos nada relacionado a &quot;{query.game}
+                &quot;
+              </h1>
+              <h2>Tente pesquisar algo diferente</h2>
+            </div>
+          </BlankGamesSearch>
+        ) : (
+          <GamesLibrarySection
+            loadingItemsCount={50}
+            type={'grid'}
+            data={games
+              .map(game => {
+                return {
+                  ...game,
+                  total_rating_count: game.total_rating_count
+                    ? game.total_rating_count
+                    : 0
+                }
+              })
+              .sort(compareRelease)}
+          />
+        )}
       </SearchContentContainer>
     </SearchContainer>
   )
@@ -93,7 +98,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async ctx => {
   const { game } = ctx.params
   let data
   await api.grapi
@@ -104,7 +109,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         game
       }
     })
-    .then((response) => (data = response.data))
+    .then(response => (data = response.data))
     .catch(() => {
       data = 'not-found'
     })

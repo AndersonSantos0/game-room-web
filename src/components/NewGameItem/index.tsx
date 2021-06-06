@@ -40,10 +40,7 @@ interface GameItemProps {
   }
 }
 
-const GameItem = ({
-  game,
-  showRating = false
-}: GameItemProps) => {
+const GameItem = ({ game, showRating = false }: GameItemProps) => {
   const GameItemRef = useRef<HTMLDivElement>(null)
   const route = useRouter()
   const [tooRight, setTooRight] = useState(false)
@@ -51,10 +48,15 @@ const GameItem = ({
   const [videoReady, setVideoReady] = useState(false)
 
   const isTooRight = () => {
-    return ((GameItemRef.current.offsetWidth * 3.5) + GameItemRef.current.getBoundingClientRect().x) - GameItemRef.current.offsetWidth > window.innerWidth
+    return (
+      GameItemRef.current.offsetWidth * 3.5 +
+        GameItemRef.current.getBoundingClientRect().x -
+        GameItemRef.current.offsetWidth >
+      window.innerWidth
+    )
   }
 
-  const GameItemHandle = (slug) => {
+  const GameItemHandle = slug => {
     route.push('/game/' + slug)
   }
 
@@ -103,11 +105,11 @@ const GameItem = ({
           </GameRating>
         )}
         {game.videos && showVideo && (
-          <GameItemVideo tooRight={tooRight} videoReady={videoReady} >
+          <GameItemVideo tooRight={tooRight} videoReady={videoReady}>
             <YouTube
               videoId={game.videos[0].video_id}
               containerClassName="video"
-              onReady={(e) => setVideoReady(true)}
+              onReady={() => setVideoReady(true)}
               opts={{
                 height: '100%',
                 width: '100%',
@@ -131,9 +133,7 @@ const GameItem = ({
   }
 
   if (game === 'skeleton') {
-    return (
-      <GameItemSkeleton />
-    )
+    return <GameItemSkeleton />
   }
 }
 

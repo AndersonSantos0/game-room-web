@@ -11,44 +11,46 @@ export const SearchHeaderContainer = styled.div<SearchHeaderProps>`
   display: flex;
   align-items: center;
 
-  ${props => props.fixed && css`
-    position: fixed;
-    top: 0;
-    left : 0;
-    background-color: rgba(0, 0 ,0 ,.5);
-    backdrop-filter: blur(16px);
-  `}
+  ${props =>
+    props.fixed &&
+    css`
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+    `}
 
-  > form{
+  > form {
     display: flex;
     align-items: center;
-    
-    input{
+
+    input {
       height: 2rem;
-      border-radius: .25rem 0 0 .25rem;
+      border-radius: 0.25rem 0 0 0.25rem;
       border: none;
       width: 30vw;
       min-width: 10rem;
-      background-color: rgba(255,255,255,.1);
+      background-color: rgba(255, 255, 255, 0.1);
       outline: none;
       color: #fff;
-      padding: 0 .5rem;
+      padding: 0 0.5rem;
       margin-left: 1rem;
     }
 
-    button{
+    button {
       height: 2rem;
       width: 3rem;
-      border-radius: 0 .25rem .25rem 0;
+      border-radius: 0 0.25rem 0.25rem 0;
       border: none;
-      background-color: rgba(255,255,255,.15);
+      background-color: rgba(255, 255, 255, 0.15);
       color: #fff;
       outline: none;
       cursor: pointer;
-      transition: background .2s;
+      transition: background 0.2s;
 
-      :active{
-        background-color:rgba(255,255,255,.1);
+      :active {
+        background-color: rgba(255, 255, 255, 0.1);
       }
     }
   }

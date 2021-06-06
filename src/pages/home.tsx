@@ -5,6 +5,8 @@ import GamesLibrarySection from '../components/NewGamesLibrarySection'
 import Head from 'next/head'
 import RatedGamesGrid from '../components/RatedGamesGrid'
 import SearchHeader from '../components/SearchHeader'
+import UserService from '../services/users'
+import AuthService from '../services/auth'
 
 const Home = () => {
   const [topGames, setTopGames] = useState([])
@@ -18,6 +20,12 @@ const Home = () => {
   const [loadingComingGames, setLoadingComingGames] = useState(true)
   const [loadingRecentlyReviewedGames, setLoadingRecentlyReviewedGames] =
     useState(true)
+
+  const [logged, setLogged] = useState<Promise<boolean> | boolean>(
+    AuthService.isLoggedIn
+  )
+
+  AuthService.observeStatus(user => setLogged(!!user))
 
   const params = {
     qtd: 30,
@@ -84,6 +92,17 @@ const Home = () => {
     getComingGames()
     getRecentlyReviwedGames()
   }, [])
+
+  /* useEffect(() => {
+    if (logged) {
+      UserService.getUsers()
+    } else {
+      AuthService.loginWithGoogle().then(user => {
+        console.log(user.user)
+        UserService.getUsers()
+      })
+    } 
+  }, []) */
 
   return (
     <HomeContainer>

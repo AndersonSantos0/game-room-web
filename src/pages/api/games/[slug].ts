@@ -10,7 +10,7 @@ const cors = initMiddleware(
   })
 )
 
-export default async function handler (req, res) {
+export default async function handler(req, res) {
   const slug = req.query.slug
 
   await cors(req, res)

@@ -25,7 +25,9 @@ export const api = {
     }
   }),
   grapi: axios.create({
-    baseURL: isProd ? 'https://game-room.vercel.app/api/' : 'http://localhost:3000/api/',
+    baseURL: isProd
+      ? 'https://game-room.vercel.app/api/'
+      : 'http://localhost:3000/api/',
     headers: {
       'Client-ID': client_id
     }

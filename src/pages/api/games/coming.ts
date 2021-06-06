@@ -10,19 +10,25 @@ const cors = initMiddleware(
   })
 )
 
-export default async function handler (req, res) {
+export default async function handler(req, res) {
   await cors(req, res)
 
   const headers = {
     Authorization: await getGRBT()
   }
 
+  const actualDate = Math.floor(new Date().getTime() / 1000)
+  const index =
+    Number(req.query.index) > 0
+      ? Number(req.query.index) * Number(req.query.qtd)
+      : 0
+
   const query = `
     fields name, summary, storyline, cover.image_id, first_release_date, videos.video_id, slug;
-    where first_release_date > ${Math.floor(new Date().getTime() / 1000)} & category = 0;
+    where first_release_date > ${actualDate} & category = 0;
     sort first_release_date asc;
     limit: ${req.query?.qtd || 30};
-    offset: ${Number(req.query.index) > 0 ? Number(req.query.index) * Number(req.query.qtd) : 0};
+    offset: ${index};
   `
 
   const gamesReponse = await api.igdb.post('games', query, {

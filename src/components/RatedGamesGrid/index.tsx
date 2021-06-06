@@ -45,7 +45,7 @@ const RatedGameSlide = ({ screenshots }: RatedGameSlideProps) => {
   const CoverRef = useRef<HTMLDivElement>(null)
 
   const SlideIncrement = () => {
-    setCounter((prev) => (prev + 1 < screenshots.length - 1 ? prev + 1 : 0))
+    setCounter(prev => (prev + 1 < screenshots.length - 1 ? prev + 1 : 0))
   }
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const RatedGameSlide = ({ screenshots }: RatedGameSlideProps) => {
   return (
     <Cover ref={CoverRef} length={screenshots.length} counter={counter}>
       <div className="container">
-        {screenshots.map((image) => {
+        {screenshots.map(image => {
           return (
             <Image
               key={image.id}
@@ -82,7 +82,7 @@ const RatedGamesGrid = ({
   const route = useRouter()
   const [loadingSkeletonList] = useState(new Array(5).fill(null))
 
-  const GameHandle = (slug) => {
+  const GameHandle = slug => {
     route.push('/game/' + slug)
   }
 
@@ -140,7 +140,6 @@ const RatedGamesGrid = ({
             }
             className={position}
           >
-
             <RatedGameSlide screenshots={game.screenshots} />
 
             <RatedGamesGridContent onClick={() => GameHandle(game.slug)}>

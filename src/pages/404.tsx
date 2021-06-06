@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import Particles from 'react-particles-js'
 import Logo from '../components/Logo'
-import { NotFoundCodeContainer, NotFoundContainer } from '../styles/pages/errors'
+import {
+  NotFoundCodeContainer,
+  NotFoundContainer
+} from '../styles/pages/errors'
 
 const NotFound = () => {
   return (
@@ -15,9 +18,7 @@ const NotFound = () => {
       </NotFoundCodeContainer>
       <section>
         <h1>Oops</h1>
-        <p>
-          Nos infiltramos no lugar errado, precisamos voltar
-        </p>
+        <p>Nos infiltramos no lugar errado, precisamos voltar</p>
       </section>
       <Particles
         params={{

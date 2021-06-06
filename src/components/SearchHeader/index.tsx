@@ -21,14 +21,14 @@ const SearchHeader = ({ fixed = false }: SearchHeaderProps) => {
     <SearchHeaderContainer fixed={fixed}>
       <Logo size="2rem" />
       <form
-        onSubmit={(e) => {
+        onSubmit={e => {
           e.preventDefault()
           Search()
         }}
       >
         <input
           value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={e => setSearchValue(e.target.value)}
           placeholder="Search"
           type="text"
         />

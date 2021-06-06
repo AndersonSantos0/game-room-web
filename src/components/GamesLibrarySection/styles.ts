@@ -20,33 +20,33 @@ export const GamesLibrarySlideArrows = styled.div`
   align-self: flex-end;
   border-radius: 0.5rem;
   overflow: hidden;
-  
-  > button{
+
+  > button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 3rem;
     height: 2.5rem;
-    background-color: rgba(51, 154, 255, .1);
+    background-color: rgba(51, 154, 255, 0.1);
     transition: opacity 0.4s;
     cursor: pointer;
     border: none;
     outline: none;
-    
-    &:active{
-      background-color: rgba(51, 154, 255, .15);
+
+    &:active {
+      background-color: rgba(51, 154, 255, 0.15);
     }
 
-    > svg{
+    > svg {
       color: #fff;
     }
 
-    &:disabled{
-      opacity: .4;
+    &:disabled {
+      opacity: 0.4;
       cursor: default;
 
-      &:active{
-        background-color: rgba(51, 154, 255, .1);
+      &:active {
+        background-color: rgba(51, 154, 255, 0.1);
       }
     }
   }
@@ -57,9 +57,9 @@ export const GamesLibraryHeader = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  h1{
+  h1 {
     color: #fff;
-    font-family: KoHo semibold;
+    font-family: KoHo semibold, sans-serif;
     font-weight: 100;
   }
 `

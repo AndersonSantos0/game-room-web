@@ -4,7 +4,7 @@ export const GameScreenContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: rgba(0,0,0,.75);
+  background-color: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(96px);
   overflow-y: auto;
 
@@ -18,7 +18,7 @@ export const GameScreenContainer = styled.div`
 
   ::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.2);
-    transition: .4s;
+    transition: 0.4s;
   }
 `
 export const GameBackCover = styled.div`
@@ -34,26 +34,26 @@ export const GameBackCover = styled.div`
   background-size: cover;
   background-attachment: fixed;
 
-  > div{
+  > div {
     width: 100%;
   }
 
-  :after{
+  :after {
     content: '';
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(0deg, rgba(0,0,0,.8), transparent 60%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent 60%);
     backdrop-filter: blur(4px);
   }
 `
 
 export const GameScreenContent = styled.div`
   position: relative;
-  
-  > header{
+
+  > header {
     max-width: 1400px;
     margin: auto;
     display: flex;
@@ -63,7 +63,7 @@ export const GameScreenContent = styled.div`
     min-height: 400px;
   }
 
-  > section{
+  > section {
     max-width: 1400px;
     padding: 0 2rem;
     padding-top: 2rem;
@@ -72,17 +72,17 @@ export const GameScreenContent = styled.div`
     gap: 2rem;
     margin-bottom: 2rem;
 
-    > div{
+    > div {
       width: 16rem;
       margin-top: 3.5rem;
     }
 
-    > div:first-child{
+    > div:first-child {
       display: flex;
       flex-direction: column;
-      gap: 1rem; 
+      gap: 1rem;
 
-      > button{
+      > button {
         width: 100%;
         height: 2.5rem;
         border-radius: 0.25rem;
@@ -90,38 +90,38 @@ export const GameScreenContent = styled.div`
         border: none;
         color: #fff;
         cursor: pointer;
-        transition: transform .2s, background-color .2s;
+        transition: transform 0.2s, background-color 0.2s;
         outline: none;
 
-        &:active{
+        &:active {
           background-color: var(--secondary);
-          transform: scale(.95);
+          transform: scale(0.95);
         }
       }
 
-      > p{
+      > p {
         color: var(--primary);
 
-        h3{
+        h3 {
           color: #fff;
-          font-family: KoHo semibold;
+          font-family: KoHo semibold, sans-serif;
           font-weight: 100;
           font-size: 1rem;
-          margin-right: .25rem;
+          margin-right: 0.25rem;
           float: left;
         }
 
-        a{
+        a {
           color: var(--primary);
           text-decoration: none;
 
-          &:hover{
+          &:hover {
             text-decoration: underline;
           }
         }
       }
     }
-    
+
     main {
       flex: 1;
       display: flex;
@@ -130,13 +130,13 @@ export const GameScreenContent = styled.div`
 
       h1 {
         color: #fff;
-        font-family: KoHo semibold;
+        font-family: KoHo semibold, sans-serif;
         font-weight: 100;
         margin: 1.5rem 0 1rem 0;
         font-size: 2rem;
       }
 
-      p{
+      p {
         color: #fff;
         text-align: justify;
       }
@@ -150,16 +150,16 @@ export const ScreenshotsContainer = styled.div`
   position: relative;
 
   .container {
-    ul{
+    ul {
       //height: 360px;
     }
   }
 
   .screenshot {
-    padding: 0 .25rem;
+    padding: 0 0.25rem;
     aspect-ratio: 16/9;
 
-    > div{
+    > div {
       border-radius: 0.25rem;
       overflow: hidden;
       display: flex;
@@ -167,14 +167,14 @@ export const ScreenshotsContainer = styled.div`
       background-color: #333;
       cursor: pointer;
 
-      > .video{
+      > .video {
         width: 100%;
         height: 100%;
       }
     }
   }
 
-  .dots{
+  .dots {
     width: 100%;
     height: fit-content;
     justify-content: flex-end;
@@ -189,7 +189,7 @@ export const ScreenshotsContainer = styled.div`
     margin-bottom: 1rem;
     padding: 0 2rem;
     color: #fff;
-    font-family: KoHo semibold;
+    font-family: KoHo semibold, sans-serif;
     font-weight: 100;
   }
 `
@@ -198,30 +198,30 @@ export const ScreenshotsArrowsContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: .5rem;
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
   pointer-events: none;
 
-  button{
+  button {
     width: 4rem;
     cursor: pointer;
     border-radius: 0.25rem;
-    transition: transform .2s;
+    transition: transform 0.2s;
 
-    &:active{
-      transform: scale(.95);
+    &:active {
+      transform: scale(0.95);
     }
 
-    &:first-child{
-      background: rgba(0,0,0,.8);//linear-gradient(90deg, #000, transparent 100%);
+    &:first-child {
+      background: rgba(0, 0, 0, 0.8);
       border: none;
       backdrop-filter: blur(8px);
       outline: none;
     }
 
-    &:last-child{
-      background: rgba(0,0,0,.8);//linear-gradient(270deg, #000, transparent 100%);
+    &:last-child {
+      background: rgba(0, 0, 0, 0.8);
       border: none;
       backdrop-filter: blur(8px);
       outline: none;
@@ -235,7 +235,7 @@ interface ScreenshotsDotsProps {
 
 export const ScreenshotsDots = styled.div<ScreenshotsDotsProps>`
   height: 2.5px;
-  background: ${props => props.active ? '#fff' : 'rgba(255,255,255,.4)'};
+  background: ${props => (props.active ? '#fff' : 'rgba(255,255,255,.4)')};
   width: 18px;
   margin: 0 2px;
 `
@@ -245,14 +245,14 @@ export const GameCover = styled.div`
   min-width: 16rem;
   height: 22rem;
   display: flex;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   overflow: hidden;
   background-color: #333;
   align-self: flex-end;
   position: relative;
   bottom: -4rem;
 
-  > div{
+  > div {
     width: 100%;
   }
 `
@@ -262,10 +262,10 @@ export const GameInfo = styled.div`
   align-self: flex-end;
   padding-bottom: 2rem;
 
-  h1{
+  h1 {
     font-size: 3rem;
     font-weight: 100;
-    font-family: Hammersmith;
+    font-family: Hammersmith, sans-serif;
     color: #fff;
     overflow-y: hidden;
     display: -webkit-box;
@@ -273,12 +273,12 @@ export const GameInfo = styled.div`
     -webkit-line-clamp: 3;
   }
 
-  h2{
+  h2 {
     font-size: 1.2rem;
     font-weight: 100;
-    font-family: Hammersmith;
+    font-family: Hammersmith, sans-serif;
     color: #aaa;
-    margin-left: .15rem;
+    margin-left: 0.15rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
@@ -286,12 +286,12 @@ export const GameInfo = styled.div`
     text-overflow: ellipsis;
   }
 
-  h3{
+  h3 {
     font-size: 1.2rem;
     font-weight: 100;
-    font-family: Hammersmith;
+    font-family: Hammersmith, sans-serif;
     color: var(--primary);
-    margin-left: .15rem;
+    margin-left: 0.15rem;
     line-height: 2rem;
     text-decoration: underline;
     display: -webkit-box;
@@ -301,10 +301,10 @@ export const GameInfo = styled.div`
     text-overflow: ellipsis;
   }
 
-  p{
+  p {
     color: orange;
-    font-family: KoHo semibold;
-    margin-left: .15rem;
+    font-family: KoHo semibold, sans-serif;
+    margin-left: 0.15rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
@@ -323,7 +323,7 @@ export const TotalRating = styled.div`
   right: 10rem;
   bottom: -2rem;
 
-  h1{
+  h1 {
     font-size: 2rem;
     color: var(--primary);
     position: absolute;
@@ -332,7 +332,7 @@ export const TotalRating = styled.div`
     transform: translate(-50%, -50%);
   }
 
-  h2{
+  h2 {
     font-size: 1rem;
     width: 6rem;
     text-align: center;
@@ -355,7 +355,7 @@ export const CriticRating = styled.div`
   right: 2rem;
   bottom: -2rem;
 
-  h1{
+  h1 {
     font-size: 1.25rem;
     font-weight: 400;
     color: orange;
@@ -365,7 +365,7 @@ export const CriticRating = styled.div`
     transform: translate(-50%, -50%);
   }
 
-  h2{
+  h2 {
     font-size: 1rem;
     width: 6rem;
     text-align: center;
@@ -386,17 +386,17 @@ export const LoadingContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  > div{
+  > div {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    h1{
+    h1 {
       position: relative;
-      top: .6rem;
+      top: 0.6rem;
       left: -1.2rem;
       color: #fff;
-      font-family: KoHo semibold;
+      font-family: KoHo semibold, sans-serif;
       font-weight: 100;
     }
   }

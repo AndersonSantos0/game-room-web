@@ -52,12 +52,6 @@ const responsive = {
     items: 2,
     slidesToSlide: 2,
     partialVisibilityGutter: 24
-  },
-  one: {
-    breakpoint: { max: 600, min: 0 },
-    items: 1,
-    slidesToSlide: 1,
-    partialVisibilityGutter: 96
   }
 }
 
@@ -90,24 +84,24 @@ interface GamesLibrarySectionProps {
 }
 
 interface CarouselButtonGroupProps extends ButtonGroupProps {
-  loading?: boolean;
-  enabledLeftArrrow?: boolean;
-  enabledRightArrrow?: boolean;
+  loading?: boolean
+  enabledLeftArrrow?: boolean
+  enabledRightArrrow?: boolean
 }
 
-const CustomButtonGroupAsArrows = ({ previous, next, loading, enabledLeftArrrow, enabledRightArrrow }: CarouselButtonGroupProps) => {
+const CustomButtonGroupAsArrows = ({
+  previous,
+  next,
+  loading,
+  enabledLeftArrrow,
+  enabledRightArrrow
+}: CarouselButtonGroupProps) => {
   return (
     <GamesLibrarySlideArrows className="arrows">
-      <button
-        disabled={loading || !enabledLeftArrrow}
-        onClick={previous}
-      >
+      <button disabled={loading || !enabledLeftArrrow} onClick={previous}>
         <HiOutlineChevronLeft size={'1.5rem'} />
       </button>
-      <button
-        disabled={loading || !enabledRightArrrow}
-        onClick={next}
-      >
+      <button disabled={loading || !enabledRightArrrow} onClick={next}>
         <HiOutlineChevronRight size={'1.5rem'} />
       </button>
     </GamesLibrarySlideArrows>
@@ -144,7 +138,10 @@ const GamesLibrarySection = ({
         {data.map((game, idx) => {
           return <GameItem key={game.id + idx + Math.random()} game={game} />
         })}
-        { loading && loadingRenderCount.map((item, key) => <GameItem key={key} showRating={showRating} game={'skeleton'} />) }
+        {loading &&
+          loadingRenderCount.map((item, key) => (
+            <GameItem key={key} showRating={showRating} game={'skeleton'} />
+          ))}
       </GamesLibraryContainer>
     )
   }
@@ -170,13 +167,29 @@ const GamesLibrarySection = ({
           dotListClass="dots"
           renderButtonGroupOutside
           renderDotsOutside
-          customButtonGroup={<CustomButtonGroupAsArrows loading={loading} enabledLeftArrrow={true} enabledRightArrrow={true} />}
+          customButtonGroup={
+            <CustomButtonGroupAsArrows
+              loading={loading}
+              enabledLeftArrrow={true}
+              enabledRightArrrow={true}
+            />
+          }
           customDot={<CustomDots />}
         >
-          { !loading && data.map((game, idx) => {
-            return <GameItem showRating={showRating} key={game.id + idx + Math.random()} game={game} />
-          })}
-          { loading && loadingRenderCount.map((item, key) => <GameItem key={key} game={'skeleton'}/>)}
+          {!loading &&
+            data.map((game, idx) => {
+              return (
+                <GameItem
+                  showRating={showRating}
+                  key={game.id + idx + Math.random()}
+                  game={game}
+                />
+              )
+            })}
+          {loading &&
+            loadingRenderCount.map((item, key) => (
+              <GameItem key={key} game={'skeleton'} />
+            ))}
         </Carousel>
       </GamesLibrarySlideContainer>
     )

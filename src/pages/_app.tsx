@@ -14,20 +14,21 @@ import ImageViewProvider from '../contexts/ImageViewerContext'
 import ImageViewer from '../components/ImageViewer'
 
 const MainApp = styled.main`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  
+  height: 100%;
 
-  > .AppContainer{
+  > .AppContainer {
     position: relative;
     display: flex;
-    flex: 1;
-    overflow-y: auto;
+    width: 100vw;
+    height: 100%;
+
+    @media (max-width: 780px) {
+      flex-direction: column-reverse;
+    }
   }
 `
 
-interface LoadingBarProps{
+interface LoadingBarProps {
   loading: boolean | number
 }
 
@@ -35,13 +36,13 @@ const LoadingBar = styled.div<LoadingBarProps>`
   position: absolute;
   height: 2px;
   width: calc(100% - 4rem);
-  top: ${props => props.loading ? 0 : -4}px;
+  top: ${props => (props.loading ? 0 : -4)}px;
   right: 0;
   z-index: 2;
   background-color: var(--primary);
   overflow: hidden;
 
-  &:after{
+  &:after {
     content: '';
     position: absolute;
     width: 32px;
@@ -49,21 +50,27 @@ const LoadingBar = styled.div<LoadingBarProps>`
     left: 0;
     top: 0;
     background: var(--secondary);
-    ${props => props.loading && css`
-      animation: routeLoading 3s infinite;
-    `}
+    ${props =>
+      props.loading &&
+      css`
+        animation: routeLoading 3s infinite;
+      `}
   }
 
-  @keyframes routeLoading{
-    0%{
+  @keyframes routeLoading {
+    0% {
       left: 0;
     }
-    50%{
+    50% {
       left: 100%;
     }
-    100%{
-      left: 0
+    100% {
+      left: 0;
     }
+  }
+
+  @media (max-width: 780px) {
+    width: 100%;
   }
 `
 
@@ -72,12 +79,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   const [loading, setLoading] = useState(false)
 
+  const NoMenuRoutes = ['/auth']
+
   useEffect(() => {
-    const handleRouteChange = (url, { shallow }) => {
+    const handleRouteChange = () => {
       setLoading(true)
     }
 
-    const handleRouteChanged = (url) => {
+    const handleRouteChanged = () => {
       setLoading(false)
     }
 
@@ -94,8 +103,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     <ThemeProvider theme={theme}>
       <ImageViewProvider>
         <MainApp>
-          <div className="AppContainer" >
-            <AsideMenu />
+          <div className="AppContainer">
+            {!NoMenuRoutes.includes(route.pathname) && <AsideMenu />}
             <LoadingBar loading={loading ? 1 : 0} />
             <Component {...pageProps} />
             <ImageViewer />
