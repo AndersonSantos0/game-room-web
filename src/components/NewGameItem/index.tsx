@@ -4,7 +4,7 @@ import {
   GameItemVideo,
   GameRating
 } from './styles'
-import { useRef, useState } from 'react'
+import { useRef, useState, memo } from 'react'
 import Image from 'next/image'
 import moment from 'moment'
 import YouTube from 'react-youtube'
@@ -137,4 +137,4 @@ const GameItem = ({ game, showRating = false }: GameItemProps) => {
   }
 }
 
-export default GameItem
+export default memo(GameItem)
