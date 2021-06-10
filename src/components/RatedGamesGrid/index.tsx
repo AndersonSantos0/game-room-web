@@ -45,6 +45,7 @@ const RatedGameSlide = ({ screenshots }: RatedGameSlideProps) => {
   const CoverRef = useRef<HTMLDivElement>(null)
 
   const SlideIncrement = () => {
+    if (!screenshots) return
     setCounter(prev => (prev + 1 < screenshots.length - 1 ? prev + 1 : 0))
   }
 
@@ -57,19 +58,24 @@ const RatedGameSlide = ({ screenshots }: RatedGameSlideProps) => {
   }, [])
 
   return (
-    <Cover ref={CoverRef} length={screenshots.length} counter={counter}>
+    <Cover
+      ref={CoverRef}
+      length={screenshots ? screenshots.length : 0}
+      counter={counter}
+    >
       <div className="container">
-        {screenshots.map(image => {
-          return (
-            <Image
-              key={image.id}
-              width={1080}
-              height={720}
-              objectFit={'cover'}
-              src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.jpg`}
-            />
-          )
-        })}
+        {screenshots &&
+          screenshots.map(image => {
+            return (
+              <Image
+                key={image.id}
+                width={1080}
+                height={720}
+                objectFit={'cover'}
+                src={`https://images.igdb.com/igdb/image/upload/t_720p/${image.image_id}.jpg`}
+              />
+            )
+          })}
       </div>
     </Cover>
   )

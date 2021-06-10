@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
   const query = `
     fields first_release_date, name, total_rating, total_rating_count, screenshots.image_id, genres.name, cover.image_id, slug;
-    where first_release_date > 0 & first_release_date < ${actualDate} & aggregated_rating_count > 0 & aggregated_rating > 70 & category = 0;
+    where first_release_date > 0 & first_release_date < ${actualDate} & aggregated_rating_count > 0 & aggregated_rating > 70 & category = 0 & screenshots != null;
     sort first_release_date desc;
     limit: ${req.query?.qtd || 30};
     offset: ${index};
