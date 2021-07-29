@@ -3,7 +3,7 @@ import GamesLibrarySection from '../components/NewGamesLibrarySection'
 import Head from 'next/head'
 import RatedGamesGrid from '../components/RatedGamesGrid'
 import SearchHeader from '../components/SearchHeader'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { api } from '../services/api'
 
 const Home = ({
@@ -60,7 +60,7 @@ const Home = ({
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const params = { qtd: 30 }
 
   const getGames = async () => {
@@ -80,12 +80,20 @@ export const getStaticProps: GetStaticProps = async () => {
       params: { qtd: 5 }
     })
 
+    const games = await Promise.all([
+      ratedGames,
+      topGames,
+      newestGames,
+      comingGames,
+      reviewedGames
+    ])
+
     return {
-      ratedGames: (await ratedGames).data,
-      topGames: (await topGames).data,
-      newestGames: (await newestGames).data,
-      comingGames: (await comingGames).data,
-      reviewedGames: (await reviewedGames).data
+      ratedGames: games[0].data,
+      topGames: games[1].data,
+      newestGames: games[2].data,
+      comingGames: games[3].data,
+      reviewedGames: games[4].data
     }
   }
 
@@ -93,8 +101,8 @@ export const getStaticProps: GetStaticProps = async () => {
     await getGames()
 
   return {
-    props: { ratedGames, topGames, newestGames, comingGames, reviewedGames },
-    revalidate: 60 * 10 // 10 minutes
+    props: { ratedGames, topGames, newestGames, comingGames, reviewedGames }
+    // revalidate: 60 * 10 // 10 minutes
   }
 }
 
